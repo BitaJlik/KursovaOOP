@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import static oop.Main.entity;
 import static oop.Main.size;
+import static oop.Main.SizeMap;
 public class MainMenu {
 
     static int menu_entity_ch;
@@ -88,6 +89,7 @@ public class MainMenu {
                         "\n [44] - Бій між об'єктами "+ "\u001B[31m" + "насмерть " + "\u001B[0m" +
                         "\n [ 5] - Створити нового " +
                         "\n [ 6] - Вивести всіх " +
+                        "\n [ 7] - Пересування " +
                         "\n [-1] - Завершення програми\n");
         System.out.print("Що робимо? ");
         String choose = sc.next();
@@ -167,13 +169,41 @@ public class MainMenu {
                 SeeEntity();
                 menu(obj);
             }
+// Пересування
+            case "7" -> {
+                System.out.println("Куди йдемо?");
+                String where = sc.next();
+                System.out.println("Наскільки ми йдемо?");
+                double movestep = sc.nextDouble();
+                if(movestep >= SizeMap){
+                    System.out.println("Він знаходиться на крайній точці!");
+                    menu(obj);
+                }
+                else if(movestep + obj.getX() >= SizeMap){
+                    System.out.println("Він знаходиться на крайній точці!");
+                    menu(obj);
+                }
+                else if(movestep + obj.getY() >= SizeMap){
+                    System.out.println("Він знаходиться на крайній точці!");
+                    menu(obj);
+                }
+                else {
+                    switch (where) {
+                        case "Вгору","вгору"   -> obj.moveUp();
+                        case "Вниз","вниз"     -> obj.moveDown();
+                        case "Вліво","вліво"   -> obj.moveLeft();
+                        case "Вправо","вправо" -> obj.moveRight();
+                    }
+                    menu(obj);
+                }
+            }
 // Спати
             case "0" -> {
                 obj.Sleeping();
                 menu(obj);
             }
 // Дефолт
-            default -> System.out.println("Кінець програми!");
+            default -> System.out.println();
         }
     }
     public static void SeeEntity(){ // Вивод всіх об'єктів
@@ -198,12 +228,9 @@ public class MainMenu {
     }
     public static void CreateEntity(){
         String name;
-        int id;
         double hp, dmg;
         System.out.println("Введіть Name: ");
         name = sc.next();
-        System.out.println("Введіть Id: ");
-        id = sc.nextInt();
         System.out.println("Введіть Hp: ");
         hp = sc.nextDouble();
         System.out.println("Введіть Damage:");
@@ -220,11 +247,11 @@ public class MainMenu {
             int side = sc.nextInt();
             switch (side) {
                 case 1 -> {
-                    entity[choosen] = new Spider(name, id, hp, dmg);
+                    entity[choosen] = new Spider(name, hp, dmg);
                     System.out.println("Створено новий Об'єкт" + entity[choosen].getName());
                 }
                 case 2 -> {
-                    entity[choosen] = new Steve(name, id, hp, dmg);
+                    entity[choosen] = new Steve(name, hp, dmg);
                     System.out.println("Створено новий Об'єкт");
                 }
                 default -> {
@@ -235,4 +262,5 @@ public class MainMenu {
             menu(entity[choosen]);
         }
     }
+
 }

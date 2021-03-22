@@ -2,25 +2,33 @@ package oop;
 
 import java.text.DecimalFormat;
 
-public class Spider extends Entity{
+public class Spider extends Entity {
     private String name;
     private int id ;
     private double hp;
     private double damage;
+    private double x;
+    private double y;
+    private double speed;
     //------------------------------- Конструктори
-    public Spider(String name, int id , double hp, double damage) {
+    public Spider(String name , double hp, double damage) {
         this.name = name;
-        this.id = id;
+        this.id = 1;
         this.hp = hp;
         this.damage = damage;
     }
-    public Spider(){
-        this("Павук",1,10,2.2);
+    public Spider(String name, double hp, double damage,double x,double y, double speed){
+        this.name = name;
+        this.id = 1;
+        this.hp = hp;
+        this.damage = damage;
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
     }
+    public Spider(){ this("Павук",10,2.2,2,2,5); }
     //--------------------   Дії
-    public void Attack() {
-        System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m");
-    }
+    public void Attack() { System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m"); }
     public void Healing(double heal){
         double hp = getHp();
         setHp(hp + heal);
@@ -37,39 +45,37 @@ public class Spider extends Entity{
         Progress.func();
         Healing(3);
     }
-    //------------------------------ Геттери \ Сеттери
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
+    //-------------------------------
+    public  void moveUp(){ setY(getY() + speed); }
+    public  void moveDown(){ setY(getY() + (-1 * speed)); }
+    public  void moveLeft(){ setX(getX() + (-1 * speed)); }
+    public  void moveRight(){ setX(getX() + speed); }
+    // ------------------------------ Геттери \ Сеттери
+    public double getX() { return x; }
+    public void setX(double x) { this.x = x; }
+    //-------------------------------
+    public double getY() { return y; }
+    public void setY(double y) { this.y = y; }
+    //-------------------------------
+    public double getSpeed() { return speed; }
+    public void setSpeed(double speed) { this.speed = speed; }
+    //-------------------------------
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    //-------------------------------
+    public int getId() { return id;  }
+    public void setId(int id) { this.id = id; }
     //-----------------
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    //-----------------
-    public double getHp() {
-        return hp;
-    }
-    public void setHp(double hp) {
-        this.hp = hp;
-    }
+    public double getHp() { return hp; }
+    public void setHp(double hp) { this.hp = hp; }
     //------------------
-    public double getDamage() {
-        return damage;
-    }
-    public void setDamage(double damage) {
-        this.damage = damage;
-    }
+    public double getDamage() { return damage; }
+    public void setDamage(double damage) { this.damage = damage; }
     //-------------------- Вивод інформації
     DecimalFormat f = new DecimalFormat("##.00");
     @Override
     public String toString() {
         return "Spider {" + "\u001B[35m" +" Name= " + name  +" Id= " + id +
-                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" +"  }";
+                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + "x: " + x + " y: "+ y +" }";
     }
 }

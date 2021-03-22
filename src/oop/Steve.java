@@ -7,20 +7,28 @@ public class Steve extends Entity{
     private int id ;
     private double hp;
     private double damage;
+    private double x;
+    private double y;
+    private double speed;
     //------------------------------- Конструктори
-    public Steve(String name,int id ,double hp, double damage) {
+    public Steve(String name,double hp, double damage) {
         this.name = name;
-        this.id = id;
+        this.id = 2;
         this.hp = hp;
         this.damage = damage;
     }
-    public Steve(){
-        this("Стів",1,20,2);
+    public Steve(String name, double hp, double damage,double x,double y, double speed){
+        this.name = name;
+        this.id = 2;
+        this.hp = hp;
+        this.damage = damage;
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
     }
+    public Steve(){ this("Стів",20,4,5,5,10); }
     //--------------------   Дії
-    public void Attack() {
-        System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m");
-    }
+    public void Attack() { System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m"); }
     public void Healing(double heal){
         double hp = getHp();
         setHp(hp + heal);
@@ -37,39 +45,42 @@ public class Steve extends Entity{
         Progress.func();
         Healing(3);
     }
+    //-----------------------------
+    public  void moveUp(){
+        setY(getY() + speed);
+    }
+    public  void moveDown(){
+        setY(getY() + (-1 * speed));
+    }
+    public  void moveLeft(){
+        setX(getX() + (-1 * speed));
+    }
+    public  void moveRight(){
+        setX(getX() + speed);
+    }
     //------------------------------ Геттери \ Сеттери
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    //-----------------
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    //-----------------
-    public double getHp() {
-        return hp;
-    }
-    public void setHp(double hp) {
-        this.hp = hp;
-    }
+    public double getX() { return x; }
+    public void setX(double x) { this.x = x; }
+    //
+    public double getY() { return y; }
+    public void setY(double y) { this.y = y; }
     //------------------
-    public double getDamage() {
-        return damage;
-    }
-    public void setDamage(double damage) {
-        this.damage = damage;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    //-----------------
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    //-----------------
+    public double getHp() { return hp; }
+    public void setHp(double hp) { this.hp = hp; }
+    //------------------
+    public double getDamage() { return damage; }
+    public void setDamage(double damage) { this.damage = damage; }
     //-------------------- Вивод інформації
     DecimalFormat f = new DecimalFormat("##.00");
     @Override
     public String toString() {
         return "Steve {" + "\u001B[35m" +" Name= " + name  +" Id= " + id +
-                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" +"  }";
+                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + "x: " + x + " y: "+ y +" }";
     }
 }
