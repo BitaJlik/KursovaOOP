@@ -1,6 +1,8 @@
 package oop;
 
-public class Entity implements Cloneable {
+import oop.Actions.Defalut;
+
+public abstract class Entity implements Cloneable, Defalut {
     private String name;
     private int id ;
     private double hp;
@@ -8,17 +10,7 @@ public class Entity implements Cloneable {
     private double x;
     private double y;
     private double speed;
-    //--------------------
-    public void Attack(){}
-    public void Healing(double heal){}
-    public void Death(){}
-    public void Sleeping(){}
-    //------------------------------
-    public  void moveUp(){ }
-    public  void moveDown(){ }
-    public  void moveLeft(){ }
-    public  void moveRight(){ }
-    //------------------------------ Геттери \ Сеттери
+    //------------------------------ Getters & Setters
     public double getX() { return x; }
     public void setX(double x) { this.x = x; }
     //
@@ -29,7 +21,7 @@ public class Entity implements Cloneable {
     public void setSpeed(double speed) { this.speed = speed; }
     //------------------
     public String getName() { return name; }
-    public void setName(String name){}
+    public void setName(String name){this.name = name;}
     //-----------------
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

@@ -71,6 +71,7 @@ public class Spider extends Entity {
     //------------------
     public double getDamage() { return damage; }
     public void setDamage(double damage) { this.damage = damage; }
+
     //-------------------- Вивод інформації
     DecimalFormat f = new DecimalFormat("##.00");
     @Override

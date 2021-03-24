@@ -7,7 +7,7 @@ import static oop.Main.size;
 import static oop.Main.SizeMap;
 public class MainMenu {
 
-    static int menu_entity_ch;
+    static int menu_entity_ch ;
     static int entity_ch;
     static int entity_ch2;
     static Scanner sc = new Scanner(System.in);
@@ -203,7 +203,9 @@ public class MainMenu {
                 menu(obj);
             }
 // Дефолт
-            default -> System.out.println();
+            default -> {
+                for (int i = 0; i < 50; ++i) System.out.println();
+            }
         }
     }
     public static void SeeEntity(){ // Вивод всіх об'єктів
