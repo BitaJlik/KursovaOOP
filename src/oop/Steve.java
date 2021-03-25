@@ -2,7 +2,7 @@ package oop;
 
 import java.text.DecimalFormat;
 
-public class Steve extends Entity {
+public class Steve extends Entity{
     private String name;
     private int id ;
     private double hp;
@@ -11,7 +11,7 @@ public class Steve extends Entity {
     private double y;
     private double speed;
     private double money;
-    //------------------------------- Конструктори
+    //------------------------------- Constructors
     public Steve(String name,double hp, double damage) {
         this.name = name;
         this.id = 2;
@@ -28,7 +28,7 @@ public class Steve extends Entity {
         this.speed = speed;
     }
     public Steve(){ this("Стів",20,4,5,5,10); }
-    //--------------------   Дії
+    //--------------------   Actions
     public void Attack() { System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m"); }
     public void Healing(double heal){
         double hp = getHp();
@@ -46,15 +46,15 @@ public class Steve extends Entity {
         Progress.func();
         Healing(3);
     }
-    //-----------------------------
+    //----------------------------- Movements
     public  void moveUp(){ setY(getY() + speed); }
     public  void moveDown(){ setY(getY() + (-1 * speed)); }
     public  void moveLeft(){ setX(getX() + (-1 * speed)); }
     public  void moveRight(){ setX(getX() + speed); }
-    //------------------------------ Геттери \ Сеттери
+    //------------------------------ Getters & Setters
     public double getX() { return x; }
     public void setX(double x) { this.x = x; }
-    //
+    //------------------
     public double getY() { return y; }
     public void setY(double y) { this.y = y; }
     //------------------
@@ -63,10 +63,10 @@ public class Steve extends Entity {
     //------------------
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    //-----------------
+    //------------------
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    //-----------------
+    //------------------
     public double getHp() { return hp; }
     public void setHp(double hp) { this.hp = hp; }
     //------------------
@@ -75,11 +75,11 @@ public class Steve extends Entity {
     //------------------
     public double getMoney() { return money; }
     public void setMoney(double money) { this.money = money; }
-    //-------------------- Вивод інформації
+    //-------------------- Output information
     DecimalFormat f = new DecimalFormat("##.00");
     @Override
     public String toString() {
-        return "Steve  {" + "\u001B[35m" +" Name= " + name  +" Id= " + id +
-                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + "x: " + x + " y: "+ y +" }";
+        return "Steve  {" + "\u001B[35m" +" Name= " + name  +" Id= " + id + " Money= " + money + "$" +
+                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + " y: "+ y +" }";
     }
 }

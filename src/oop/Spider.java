@@ -10,7 +10,7 @@ public class Spider extends Entity {
     private double x;
     private double y;
     private double speed;
-    //------------------------------- Конструктори
+    //------------------------------- Constructors
     public Spider(String name , double hp, double damage) {
         this.name = name;
         this.id = 1;
@@ -27,7 +27,7 @@ public class Spider extends Entity {
         this.speed = speed;
     }
     public Spider(){ this("Павук",10,2.2,2,2,5); }
-    //--------------------   Дії
+    //------------------------------- Actions
     public void Attack() { System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m"); }
     public void Healing(double heal){
         double hp = getHp();
@@ -43,14 +43,13 @@ public class Spider extends Entity {
     public void Sleeping() {
         System.out.println(name +"\u001B[32m" + " Спить" + "\u001B[0m");
         Progress.func();
-        Healing(3);
     }
     //-------------------------------
     public  void moveUp(){ setY(getY() + speed); }
     public  void moveDown(){ setY(getY() + (-1 * speed)); }
     public  void moveLeft(){ setX(getX() + (-1 * speed)); }
     public  void moveRight(){ setX(getX() + speed); }
-    // ------------------------------ Геттери \ Сеттери
+    // ------------------------------ Getters & Setters
     public double getX() { return x; }
     public void setX(double x) { this.x = x; }
     //-------------------------------
@@ -72,11 +71,11 @@ public class Spider extends Entity {
     public double getDamage() { return damage; }
     public void setDamage(double damage) { this.damage = damage; }
 
-    //-------------------- Вивод інформації
+    //-------------------- Output information
     DecimalFormat f = new DecimalFormat("##.00");
     @Override
     public String toString() {
         return "Spider {" + "\u001B[35m" +" Name= " + name  +" Id= " + id +
-                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + "x: " + x + " y: "+ y +" }";
+                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + " y: "+ y +" }";
     }
 }

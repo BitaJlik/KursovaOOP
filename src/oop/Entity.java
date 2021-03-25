@@ -2,7 +2,7 @@ package oop;
 
 import oop.Actions.Defalut;
 
-public abstract class Entity implements Cloneable, Defalut {
+public abstract class Entity implements Cloneable,Defalut {
     private String name;
     private int id ;
     private double hp;
@@ -10,6 +10,8 @@ public abstract class Entity implements Cloneable, Defalut {
     private double x;
     private double y;
     private double speed;
+    private double money;
+
     //------------------------------ Getters & Setters
     public double getX() { return x; }
     public void setX(double x) { this.x = x; }
@@ -31,6 +33,10 @@ public abstract class Entity implements Cloneable, Defalut {
     //------------------
     public double getDamage() { return damage; }
     public void setDamage(double damage) { this.damage = damage; }
+    //---------------------(ONLY STEVE)-------------------------------\\
+    public double getMoney() { return money; }
+    public void setMoney(double money) { this.money = money; }
+    //
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

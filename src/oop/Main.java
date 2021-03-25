@@ -1,19 +1,27 @@
 package oop;
 
+import oop.Items.Items;
+
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 import static oop.MainMenu.menu_entity_ch;
 
 public class Main {
+
+    public static Home home = new Home(); // Adding Home to game
     static int SizeMap = 500;
     static Scanner sc = new Scanner(System.in);
     static int size = 10;
     static Entity[] entity = new Entity[size];
     static String input;
+
     public static void main(String[] args) {
-        for(int i = 0;i<10;i++)        //---------- Створюємо ліст Об'єктів
-            entity[i] = new Spider();
-        entity[1] = new Steve("Гоша",20,2,50,24,10); // Добавляємо Стіва
+        IntStream.range(0, 10).forEach(i -> entity[i] = new Spider());          //\---------- Making list Entity
+        entity[1] = new Steve("Гоша",20,2,50,24,10); //\-------------- Adding Steve in Entity
+        Items.initialize();
+
+        // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");
         safe();
