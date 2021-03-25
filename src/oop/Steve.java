@@ -43,7 +43,7 @@ public class Steve extends Entity{
     }
     public void Sleeping() {
         System.out.println(name +"\u001B[32m" + " Спить" + "\u001B[0m");
-        Progress.func();
+        Progress.func(10);
         Healing(3);
     }
     //----------------------------- Movements

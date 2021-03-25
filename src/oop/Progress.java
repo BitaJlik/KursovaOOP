@@ -43,11 +43,11 @@ public class Progress implements AutoCloseable  {
         }
         System.out.print("]");
     }
-    public static void func(){ // Main функція
-        String[] ss = new String[250];
+    public static void func(int time){ // Main функція
+        String[] ss = new String[200 * time];
         try (Progress progress = Progress.ofMax(ss.length)){
             Arrays.stream(ss).forEach(s -> {
-                Waiting(10);
+                Waiting(time);
                 progress.tick();
             });
             System.out.println();

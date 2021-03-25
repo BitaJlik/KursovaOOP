@@ -20,7 +20,7 @@ public class Main {
         IntStream.range(0, 10).forEach(i -> entity[i] = new Spider());          //\---------- Making list Entity
         entity[1] = new Steve("Гоша",20,2,50,24,10); //\-------------- Adding Steve in Entity
         Items.initialize();
-
+        System.out.println(Items.items.get(1).getDigseconds());
         // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");

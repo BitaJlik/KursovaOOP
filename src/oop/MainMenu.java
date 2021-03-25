@@ -9,7 +9,7 @@ public class MainMenu {
 
     static int menu_entity_ch ;
     static int entity_ch;
-    static int entity_ch2;
+    static int ch2;
     static Scanner sc = new Scanner(System.in);
 
     public static void menu(Entity obj)  {
@@ -71,31 +71,52 @@ public class MainMenu {
 //------------------------------------------ Batlle
             case "4" -> {
                 System.out.println("Виберіть створіння для бою : ");
-                entity_ch2 = sc.nextInt();
-                if (obj.equals(entity[entity_ch2])) {
-                    System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                String ch = sc.next();
+                try{
+                    ch2 = Integer.parseInt(ch);
+                }
+                catch (NumberFormatException e){
+                    System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
+                    Progress.Waiting(1000);
+                    cls();
                     menu(obj);
                 }
-                else if (obj.getId() == -1 || entity[entity_ch2].getId() == -1) {
-                    System.out.println("Одне з створінь мертве");
-                    menu(obj);
+                if(ch2 >= items.size() || ch2 < 0){menu(obj);}
+                else {
+
+                    if (obj.equals(entity[ch2])) {
+                        System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                        menu(obj);
+                    } else if (obj.getId() == -1 || entity[ch2].getId() == -1) {
+                        System.out.println("Одне з створінь мертве");
+                        menu(obj);
+                    } else
+                        Batlle(obj, entity[ch2]);
                 }
-                else
-                    Batlle(obj, entity[entity_ch2]);
-                menu(obj);
             }
 //------------------------------------------ DeathBatlle
             case "44" -> {
                 System.out.println("Виберіть  героя для бою : ");
-                entity_ch = sc.nextInt();
-                entity_ch2 = sc.nextInt();
-                if (entity_ch == entity_ch2) {
-                    System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                String ch = sc.next();
+                try{
+                    ch2 = Integer.parseInt(ch);
+                }
+                catch (NumberFormatException e){
+                    System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
+                    Progress.Waiting(1000);
+                    cls();
                     menu(obj);
-                } else if (entity[entity_ch].getId() == -1 || entity[entity_ch2].getId() == -1) {
-                    System.out.println("Одне з створінь мертве");
-                    menu(entity[menu_entity_ch]);
-                } else Deathbatlle(entity[entity_ch], entity[entity_ch2]);
+                }
+                if(ch2 >= items.size() || ch2 < 0){menu(obj);}
+                else {
+                    if (entity_ch == ch2) {
+                        System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                        menu(obj);
+                    } else if (entity[entity_ch].getId() == -1 || entity[ch2].getId() == -1) {
+                        System.out.println("Одне з створінь мертве");
+                        menu(entity[menu_entity_ch]);
+                    } else Deathbatlle(entity[entity_ch], entity[ch2]);
+                }
             }
 //------------------------------------------ Creating new entity
             case "5" -> CreateEntity();
@@ -109,7 +130,7 @@ public class MainMenu {
                 System.out.println("Куди йдемо?");
                 String where = sc.next();
                 System.out.println("Наскільки ми йдемо?");
-                double movestep = sc.nextDouble();
+                int movestep = sc.nextInt();
                 if(movestep >= SizeMap){
                     System.out.println("Він знаходиться на крайній точці!");
                     menu(obj);
@@ -144,39 +165,62 @@ public class MainMenu {
                 obj.Sleeping();
                 menu(obj);
             }
+//------------------------------------------ Exit
+            case "-1" ->{}
 //------------------------------------------ Default
             default -> {
-                for (int i = 0; i < 50; ++i) System.out.println();
+                System.out.println("\u001B[31m"+"Не введено параметр "+"\u001B[0m");
+                Progress.Waiting(1000);
+                cls();
+                menu(obj);
             }
         }
     }
     public static void dig(Entity obj){
-        if(obj.getClass() == Steve.class ) {
-            double id = Math.random() * items.size();
-            for (oop.Items.Items item : items) {
-                if (item.getId() == Math.round(id)) {
+        if(obj.getClass() == Steve.class ) { //---------- ONLY STEVE-------\\
+            double id = Math.round( Math.random() * items.size() );
+            for ( oop.Items.Items item : items) {
+                if ( item.getId() == id ) {
+                    Progress.func(item.getDigseconds());
                     System.out.println("Добули " + item.getName());
                     item.setAmount(1);
                 }
             }
         }
-        else System.out.println("Це павук!");
+        else{
+            System.out.println("\u001B[31m" + "Це не Стів!!!" + "\u001B[31m");
+            Progress.Waiting(1000);
+            cls();
+        }
     }
     public static void Invetory(Entity obj){
-        if(obj.getClass() == Steve.class ) {
+        if(obj.getClass() == Steve.class ) { //---------- ONLY STEVE-------\\
             SeeItems(obj);
             System.out.println("\n\n[-2] - Продати предмет \t [-1] - Вихід");
             String itemchoose = sc.next();
-            if(itemchoose.equalsIgnoreCase("-2")){
-                SellItem(obj);
-            }
-            else if(itemchoose.equalsIgnoreCase("-1")){
-                menu(obj);
-            }
-            else {
-                cls();
-                System.out.println(items.get(Integer.parseInt(itemchoose)));
-                Invetory(obj);
+            switch (itemchoose) {
+                case "-2" -> SellItem(obj);
+                case "-1" -> menu(obj);
+                default -> {
+                    try {
+                        if(Integer.parseInt(itemchoose) >= items.size() || Integer.parseInt(itemchoose) < -2){
+                            System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
+                            Progress.Waiting(1000);
+                            cls();
+                            Invetory(obj);
+                        }
+                        else {
+                            cls();
+                            System.out.println(items.get(Integer.parseInt(itemchoose)));
+                            Invetory(obj);
+                        }
+                    }catch (NumberFormatException e){
+                        System.out.println("\u001B[31m" + "Неправильне введення!" + "\u001B[0m");
+                        Progress.Waiting(2000);
+                        cls();
+                        Invetory(obj);
+                    }
+                }
             }
         }
     }
@@ -193,7 +237,7 @@ public class MainMenu {
                 }
             }
             if(empty == 1 && check != 1){
-                System.out.println("\nТут пусто 0_0");
+                System.out.println("\u001B[32m" + "\nТут пусто 0_0" + "\u001B[0m");
             }
         }
     }
@@ -201,12 +245,19 @@ public class MainMenu {
         if(obj.getClass() == Steve.class ) {
             System.out.println("Що продати?\t [-1] Назад");
             int chooseinv = sc.nextInt();
-            if (chooseinv == -1) {
+            if(chooseinv < -1 || chooseinv >= items.size()){
+                System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
+                Progress.Waiting(1000);
                 cls();
-                Invetory(obj);
-            } else
-                home.Sell(chooseinv, obj); // Trying to use seller with objects
-            menu(obj);
+            }
+            else {
+                if (chooseinv == -1) {
+                    cls();
+                    Invetory(obj);
+                } else
+                    home.Sell(chooseinv, obj); // Trying to use seller with objects
+            }
+            Invetory(obj);
         }
     }
     public static void SeeEntity(){ // Screen all Entities
@@ -292,6 +343,7 @@ public class MainMenu {
         }
         else if(FrstEntity.getHp() == ScndEntity.getHp()){
             System.out.println("Нічия!");
+            menu(FrstEntity);
         }
     }
     public static void Deathbatlle(Entity FrstEntity,Entity ScndEntity){

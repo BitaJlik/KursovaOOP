@@ -28,6 +28,8 @@ public class Home {
         if(Items.items.get(choose).getId()!=-1){
             if(Items.items.get(choose).getAmount() <= 0 ){
                 System.out.println("\u001B[35m"+"Немає в наявності!"+"\u001B[0m");
+                Progress.Waiting(1500);
+                MainMenu.cls();
             }
             else {
                 System.out.println("\u001B[33m"+"Продано " + Items.items.get(choose).getName()+"\u001B[0m");
