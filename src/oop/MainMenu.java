@@ -21,7 +21,7 @@ public class MainMenu {
                         "\n [ 3] - Вибрати іншого " +
                         "\n [ 4] - Бій між об'єктами" +
                         "\n [44] - Бій між об'єктами "+ "\u001B[31m" + "насмерть " + "\u001B[0m" +
-                        "\n [ 5] - Створити нового " +
+                        "\n [ 5] - Створити нового   " +"[55] - Видалити" +
                         "\n [ 6] - Вивести всіх " +
                         "\n [ 7] - Пересування " +
                         "\n [ 8] - Переглянути предмети " +
@@ -84,14 +84,14 @@ public class MainMenu {
                 if(ch2 >= items.size() || ch2 < 0){menu(obj);}
                 else {
 
-                    if (obj.equals(entity[ch2])) {
+                    if (obj.equals(entity.get(ch2))) {
                         System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
                         menu(obj);
-                    } else if (obj.getId() == -1 || entity[ch2].getId() == -1) {
+                    } else if (obj.getId() == -1 || entity.get(ch2).getId() == -1) {
                         System.out.println("Одне з створінь мертве");
                         menu(obj);
                     } else
-                        Batlle(obj, entity[ch2]);
+                        Batlle(obj, entity.get(ch2));
                 }
             }
 //------------------------------------------ DeathBatlle
@@ -112,14 +112,16 @@ public class MainMenu {
                     if (entity_ch == ch2) {
                         System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
                         menu(obj);
-                    } else if (entity[entity_ch].getId() == -1 || entity[ch2].getId() == -1) {
+                    } else if (entity.get(entity_ch).getId() == -1 || entity.get(ch2).getId() == -1) {
                         System.out.println("Одне з створінь мертве");
-                        menu(entity[menu_entity_ch]);
-                    } else Deathbatlle(entity[entity_ch], entity[ch2]);
+                        menu(entity.get(menu_entity_ch));
+                    } else Deathbatlle(entity.get(entity_ch), entity.get(ch2));
                 }
             }
 //------------------------------------------ Creating new entity
             case "5" -> CreateEntity();
+//------------------------------------------ Delete entity
+            case "55" -> DeleteEntity();
 //------------------------------------------ List all entities
             case "6" -> {
                 SeeEntity();
@@ -165,6 +167,10 @@ public class MainMenu {
                 obj.Sleeping();
                 menu(obj);
             }
+            case "11"->{
+                entity.sort(Entity::compareTo);
+                menu(obj);
+            }
 //------------------------------------------ Exit
             case "-1" ->{}
 //------------------------------------------ Default
@@ -207,13 +213,12 @@ public class MainMenu {
                             System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
                             Progress.Waiting(1000);
                             cls();
-                            Invetory(obj);
                         }
                         else {
                             cls();
                             System.out.println(items.get(Integer.parseInt(itemchoose)));
-                            Invetory(obj);
                         }
+                        Invetory(obj);
                     }catch (NumberFormatException e){
                         System.out.println("\u001B[31m" + "Неправильне введення!" + "\u001B[0m");
                         Progress.Waiting(2000);
@@ -261,24 +266,25 @@ public class MainMenu {
         }
     }
     public static void SeeEntity(){ // Screen all Entities
-        for(int i = 0;i < size;i++){
-            if(entity[i].getId() == -1) {
-                System.out.print("\u001B[31m" +"[" + i + "] " + entity[i].getName());
+        for(int i = 0;i < entity.size();i++){
+            if(entity.get(i).getId() == -1) {
+                System.out.print("\u001B[31m" +"[" + i + "] " + entity.get(i).getName());
                 System.out.print( " - Мертвий \n" + "\u001B[0m");
             }
             else  {
-                System.out.println("|" + i + "| " + entity[i].getName());
+                // System.out.println("|" + i + "| " + entity.get(i).getName());
+                System.out.println( "|" + i + "| " + entity.get(i));
             }
         }
     }
     public static void ChangeEntity(){ //---------- Changing Entity from list
         System.out.println("Виберіть: ");
         menu_entity_ch = sc.nextInt();
-        if(entity[menu_entity_ch].getId() == -1){
+        if(entity.get(menu_entity_ch).getId() == -1){
             System.out.println("\u001B[31m" +"Об'єкт мертвий"+ "\u001B[0m" );
             ChangeEntity();
         }
-        else menu(entity[menu_entity_ch]);
+        else menu(entity.get(menu_entity_ch));
     }
     public static void CreateEntity(){ // I think its logic?
         String name;
@@ -294,26 +300,46 @@ public class MainMenu {
         int choosen = sc.nextInt();
         if(choosen > size){
             System.out.println("\u001B[31m" + "Місце перевищує розмір!\n" + "\u001B[0m");
-            menu(entity[0]);
+            menu(entity.get(0));
         }
         else{
             System.out.println("Кого створити?\n1 - Spider\t 2- Steve");
             String side = sc.next();
             switch (side) {
                 case "1" -> { // Side Spiders
-                    entity[choosen] = new Spider(name, hp, dmg);
-                    System.out.println("Створено новий Об'єкт" + entity[choosen].getName());
+                    entity.add(choosen+1, new Spider(name, hp, dmg));
+                    System.out.println("Створено новий Об'єкт" + entity.get(choosen).getName());
                 }
                 case "2" -> { // Side Steves
-                    entity[choosen] = new Steve(name, hp, dmg);
+                    entity.add(choosen+1, new Steve(name, hp, dmg));
                     System.out.println("Створено новий Об'єкт");
                 }
                 default -> { // If user inputted other
                     System.out.println("Створення відмінено\n");
-                    menu(entity[0]);
+                    menu(entity.get(0));
                 }
             }
-            menu(entity[choosen]);
+            menu(entity.get(choosen));
+        }
+    }
+    public static void DeleteEntity(){
+        System.out.println("Кого видалити?");
+        SeeEntity();
+        String ch = sc.next();
+        try {
+            int choose = Integer.parseInt(ch);
+            if(choose >= entity.size()||choose < 0){}
+            else {
+            System.out.println("Видалено " + entity.get(choose).getName());
+            entity.remove(choose);
+            ChangeEntity();
+            }
+        }
+        catch (NumberFormatException e){
+            System.out.println("\u001B[31m" + "Неправильне введення!" + "\u001B[0m");
+            Progress.Waiting(2000);
+            cls();
+            DeleteEntity();
         }
     }
     public static void Batlle(Entity FrstEntity,Entity ScndEntity){

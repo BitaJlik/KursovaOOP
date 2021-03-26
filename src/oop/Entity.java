@@ -2,7 +2,7 @@ package oop;
 
 import oop.Actions.Defalut;
 
-public abstract class Entity implements Cloneable,Defalut {
+public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     private String name;
     private int id ;
     private double hp;
@@ -47,4 +47,12 @@ public abstract class Entity implements Cloneable,Defalut {
                 id == entity.id &&
                 damage == entity.damage;
     }
+    public int compareTo(Entity entity){
+        if (this.hp == entity.hp)
+            return 0;
+        else if(this.hp < entity.hp)
+            return -1;
+        else return 1;
+    }
+
 }

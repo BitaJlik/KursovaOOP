@@ -2,7 +2,7 @@ package oop;
 
 import java.text.DecimalFormat;
 
-public class Steve extends Entity{
+public class Steve extends Entity {
     private String name;
     private int id ;
     private double hp;
@@ -17,6 +17,8 @@ public class Steve extends Entity{
         this.id = 2;
         this.hp = hp;
         this.damage = damage;
+        this.x = 5;
+        this.y = 5;
     }
     public Steve(String name, double hp, double damage,double x,double y, double speed){
         this.name = name;
@@ -43,7 +45,7 @@ public class Steve extends Entity{
     }
     public void Sleeping() {
         System.out.println(name +"\u001B[32m" + " Спить" + "\u001B[0m");
-        Progress.func(10);
+        Progress.func(2);
         Healing(3);
     }
     //----------------------------- Movements
@@ -80,6 +82,6 @@ public class Steve extends Entity{
     @Override
     public String toString() {
         return "Steve  {" + "\u001B[35m" +" Name= " + name  +" Id= " + id + " Money= " + money + "$" +
-                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + " y: "+ y +" }";
+                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + "| y: "+ y +" }";
     }
 }

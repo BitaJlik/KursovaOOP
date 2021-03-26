@@ -42,7 +42,7 @@ public class Spider extends Entity {
     }
     public void Sleeping() {
         System.out.println(name +"\u001B[32m" + " Спить" + "\u001B[0m");
-        Progress.func(10);
+        Progress.func(1);
     }
     //-------------------------------
     public  void moveUp(){ setY(getY() + speed); }
@@ -76,6 +76,6 @@ public class Spider extends Entity {
     @Override
     public String toString() {
         return "Spider {" + "\u001B[35m" +" Name= " + name  +" Id= " + id +
-                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + " y: "+ y +" }";
+                "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[32m" + " x: " + x +" | " +"y: "+ y + "\u001B[0m"+" }";
     }
 }
