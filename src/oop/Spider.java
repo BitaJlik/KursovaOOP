@@ -78,4 +78,7 @@ public class Spider extends Entity {
         return "Spider {" + "\u001B[35m" +" Name= " + name  +" Id= " + id +
                 "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[32m" + " x: " + x +" | " +"y: "+ y + "\u001B[0m"+" }";
     }
+    public static int compareTo(Entity entity, Entity entity1) {
+        return Double.compare(entity.getHp(), entity1.getHp());
+    }
 }

@@ -84,4 +84,7 @@ public class Steve extends Entity {
         return "Steve  {" + "\u001B[35m" +" Name= " + name  +" Id= " + id + " Money= " + money + "$" +
                 "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + "| y: "+ y +" }";
     }
+    public static int compareTo(Entity other,Entity entity1) {
+        return other.getName().compareTo(entity1.getName());
+    }
 }

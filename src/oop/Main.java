@@ -17,21 +17,24 @@ public class Main  {
     static String input;
 
     static ArrayList<Entity> entity = new ArrayList<>();
+    static ArrayList<Entity> refEntity = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Скільки об'єктів буде?");
         size = sc.nextInt();
 
-        IntStream.range(0, size).forEach(i -> entity.add(i,new Spider()));     //\---------- Making list Entity
-      //  entity[1] = new Steve("Гоша",20,2,50,24,10); //\-------------- Adding Steve in Entity
+        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider()));     //\---------- Making list Entity
+        refEntity.set(1, new Steve("Гоша",20,2,50,24,10)); //\-------------- Adding Steve in Entity
         Items.initialize();
-
-        System.out.println(Items.items.get(1).getDigseconds());
+        for(int i = 0 ;i < refEntity.size();++i){ // Reference Array
+            entity.add(i,refEntity.get(i));
+        }
         // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");
         safe();
         MainMenu.menu(entity.get(menu_entity_ch));
+        System.out.println(refEntity.get(1));
     }
     public static void safe(){
         try {

@@ -48,11 +48,6 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
                 damage == entity.damage;
     }
     public int compareTo(Entity entity){
-        if (this.hp == entity.hp)
-            return 0;
-        else if(this.hp < entity.hp)
-            return -1;
-        else return 1;
+        return Double.compare(this.hp, entity.hp);
     }
-
 }

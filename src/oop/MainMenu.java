@@ -1,5 +1,6 @@
 package oop;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 import static oop.Items.Items.items;
@@ -13,20 +14,12 @@ public class MainMenu {
     static Scanner sc = new Scanner(System.in);
 
     public static void menu(Entity obj)  {
-        System.out.println(
-                "\nВибрано : " + obj.getName() +
-                        "\n [ 0] - Поспати (+3 Hp)  " +
-                        "\n [ 1] - Вивести на екран інформацію " +
-                        "\n [ 2] - Змінити параметри " +
-                        "\n [ 3] - Вибрати іншого " +
-                        "\n [ 4] - Бій між об'єктами" +
-                        "\n [44] - Бій між об'єктами "+ "\u001B[31m" + "насмерть " + "\u001B[0m" +
-                        "\n [ 5] - Створити нового   " +"[55] - Видалити" +
-                        "\n [ 6] - Вивести всіх " +
-                        "\n [ 7] - Пересування " +
-                        "\n [ 8] - Переглянути предмети " +
-                        "\n [ 9] - Добути предмети " +
-                        "\n [-1] - Завершення програми\n");
+        if(obj.getClass() == Spider.class){
+            menulistSpider(obj);
+        }
+        if(obj.getClass()== Steve.class){
+            menulistSteve(obj);
+        }
         System.out.print("Що робимо? ");
         String choose = sc.next();
         switch (choose) {
@@ -70,54 +63,58 @@ public class MainMenu {
             }
 //------------------------------------------ Batlle
             case "4" -> {
+                System.out.println("Режим бою:\n [1] - Звичайний [2] - " + "\u001B[31m" + "Насмерть" + "\u001B[m");
+                String choosebatlle = sc.next();
+                if (choosebatlle.equals("2")) {
+                    System.out.println("Виберіть  героя для бою : ");
+                    String ch = sc.next();
+                    try {
+                        ch2 = Integer.parseInt(ch);
+                    } catch (NumberFormatException e) {
+                        System.out.println("\u001B[31m" + "Некоректне введеня!" + "\u001B[0m");
+                        Progress.Waiting(1000);
+                        cls();
+                        menu(obj);
+                    }
+                    if (ch2 >= items.size() || ch2 < 0) {
+                        menu(obj);
+                    } else {
+                        if (entity_ch == ch2) {
+                            System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                            menu(obj);
+                        } else if (entity.get(entity_ch).getId() == -1 || entity.get(ch2).getId() == -1) {
+                            System.out.println("Одне з створінь мертве");
+                            menu(entity.get(menu_entity_ch));
+                        } else Deathbatlle(entity.get(entity_ch), entity.get(ch2));
+                    }
+                }
+                else {
                 System.out.println("Виберіть створіння для бою : ");
                 String ch = sc.next();
-                try{
+                try {
                     ch2 = Integer.parseInt(ch);
-                }
-                catch (NumberFormatException e){
-                    System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
+                } catch (NumberFormatException e) {
+                    System.out.println("\u001B[31m" + "Некоректне введеня!" + "\u001B[0m");
                     Progress.Waiting(1000);
                     cls();
                     menu(obj);
                 }
-                if(ch2 >= items.size() || ch2 < 0){menu(obj);}
-                else {
+                if (ch2 >= items.size() || ch2 < 0) {
+                    menu(obj);
+                } else {
 
-                    if (obj.equals(entity.get(ch2))) {
-                        System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
-                        menu(obj);
-                    } else if (obj.getId() == -1 || entity.get(ch2).getId() == -1) {
-                        System.out.println("Одне з створінь мертве");
-                        menu(obj);
-                    } else
-                        Batlle(obj, entity.get(ch2));
+                        if (obj.equals(entity.get(ch2))) {
+                            System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                            menu(obj);
+                        } else if (obj.getId() == -1 || entity.get(ch2).getId() == -1) {
+                            System.out.println("Одне з створінь мертве");
+                            menu(obj);
+                        } else
+                            Batlle(obj, entity.get(ch2));
+                    }
                 }
             }
-//------------------------------------------ DeathBatlle
-            case "44" -> {
-                System.out.println("Виберіть  героя для бою : ");
-                String ch = sc.next();
-                try{
-                    ch2 = Integer.parseInt(ch);
-                }
-                catch (NumberFormatException e){
-                    System.out.println("\u001B[31m" + "Некоректне введеня!"+ "\u001B[0m");
-                    Progress.Waiting(1000);
-                    cls();
-                    menu(obj);
-                }
-                if(ch2 >= items.size() || ch2 < 0){menu(obj);}
-                else {
-                    if (entity_ch == ch2) {
-                        System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
-                        menu(obj);
-                    } else if (entity.get(entity_ch).getId() == -1 || entity.get(ch2).getId() == -1) {
-                        System.out.println("Одне з створінь мертве");
-                        menu(entity.get(menu_entity_ch));
-                    } else Deathbatlle(entity.get(entity_ch), entity.get(ch2));
-                }
-            }
+
 //------------------------------------------ Creating new entity
             case "5" -> CreateEntity();
 //------------------------------------------ Delete entity
@@ -167,12 +164,54 @@ public class MainMenu {
                 obj.Sleeping();
                 menu(obj);
             }
-            case "11"->{
-                entity.sort(Entity::compareTo);
-                menu(obj);
-            }
 //------------------------------------------ Exit
             case "-1" ->{}
+//------------------------------------------ Sort
+            case "00" ->{
+                System.out.println("Сортування:\n [1] - Comparable [2] - Анонімним класом(Only Hp) ");
+                String chooseSort = sc.next();
+                if(chooseSort.equals("1")){
+                    System.out.println("Відсортувати за:\n [1] - Hp [2] - Ім'ям");
+                    chooseSort = sc.next();
+                    if(chooseSort.equals("1")){
+                        entity.sort(Spider::compareTo);
+                        SeeEntity();
+                        menu(obj);
+                    }
+                    else if(chooseSort.equals("2")){
+                        entity.sort(Steve::compareTo);
+                        SeeEntity();
+                        menu(obj);
+                    }
+
+                }
+                else if(chooseSort.equals("2")){
+                    System.out.println("Сортувати за:  [1] - Зростанням [2] - Спаданням");
+                    chooseSort = sc.next();
+                    if(chooseSort.equals("1")){
+
+                    entity.sort(new Comparator<Entity>() {
+                        @Override
+                        public int compare(Entity o1, Entity o2) {
+                            int a = (int) o1.getHp();
+                            int b = (int) o2.getHp();
+                            return a > b ? 1 : a == b ? 30 : -1;
+                        }
+                    });}
+                    else if(chooseSort.equals("2")){
+                        entity.sort(new Comparator<Entity>() {
+                            @Override
+                            public int compare(Entity o1, Entity o2) {
+                                int a = (int) o1.getHp();
+                                int b = (int) o2.getHp();
+                                return a < b ? 1 : a == b ? 30 : -1;
+                            }
+                        });
+                    }
+                    SeeEntity();
+                    menu(obj);
+                }
+            }
 //------------------------------------------ Default
             default -> {
                 System.out.println("\u001B[31m"+"Не введено параметр "+"\u001B[0m");
@@ -279,12 +318,26 @@ public class MainMenu {
     }
     public static void ChangeEntity(){ //---------- Changing Entity from list
         System.out.println("Виберіть: ");
-        menu_entity_ch = sc.nextInt();
-        if(entity.get(menu_entity_ch).getId() == -1){
-            System.out.println("\u001B[31m" +"Об'єкт мертвий"+ "\u001B[0m" );
+        String menu_entity = sc.next();
+        try{
+            menu_entity_ch = Integer.parseInt(menu_entity);
+        }
+        catch (NumberFormatException e){
+            System.out.println("\u001B[31m"+"Введено неправильне місце"+"\u001B[0m");
+            Progress.Waiting(1000);
             ChangeEntity();
         }
-        else menu(entity.get(menu_entity_ch));
+        if(menu_entity_ch > entity.size()|| menu_entity_ch < 0){
+            System.out.println("Неравильний параметр!");
+            ChangeEntity();
+        }
+        else {
+            if(entity.get(menu_entity_ch).getId() == -1){
+                System.out.println("\u001B[31m" +"Об'єкт мертвий"+ "\u001B[0m" );
+                 ChangeEntity();
+            }
+            else menu(entity.get(menu_entity_ch));
+        }
     }
     public static void CreateEntity(){ // I think its logic?
         String name;
@@ -408,6 +461,35 @@ public class MainMenu {
             }
         }
         menu(FrstEntity);
+    }
+    public static void menulistSpider(Entity obj){
+        System.out.println(
+                "\nВибрано : " + obj.getName() +
+                        "\n [ 0] - Поспати (+3 Hp)  " +
+                        "\n [00] - Сортування  " +
+                        "\n [ 1] - Вивести на екран інформацію об'єкта" +
+                        "\n [ 2] - Змінити параметри " +
+                        "\n [ 3] - Вибрати іншого " +
+                        "\n [ 4] - Бій між об'єктами" +
+                        "\n [ 5] - Створити нового   " +"[55] - Видалити" +
+                        "\n [ 6] - Вивести всіх " +
+                        "\n [ 7] - Пересування " +
+                        "\n [-1] - Завершення програми\n");
+    } public static void menulistSteve(Entity obj){
+        System.out.println(
+                "\nВибрано : " + obj.getName() +
+                        "\n [ 0] - Поспати (+3 Hp)  " +
+                        "\n [00] - Сортування  " +
+                        "\n [ 1] - Вивести на екран інформацію об'єкта" +
+                        "\n [ 2] - Змінити параметри " +
+                        "\n [ 3] - Вибрати іншого " +
+                        "\n [ 4] - Бій між об'єктами" +
+                        "\n [ 5] - Створити нового   " +"[55] - Видалити" +
+                        "\n [ 6] - Вивести всіх " +
+                        "\n [ 7] - Пересування " +
+                        "\n [ 8] - Переглянути предмети " +
+                        "\n [ 9] - Добути предмети " +
+                        "\n [-1] - Завершення програми\n");
     }
     public static void cls(){
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
