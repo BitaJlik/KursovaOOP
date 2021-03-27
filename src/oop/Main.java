@@ -23,7 +23,7 @@ public class Main  {
         System.out.println("Скільки об'єктів буде?");
         size = sc.nextInt();
 
-        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider()));     //\---------- Making list Entity
+        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(Math.random()*10),2)));     //\---------- Making list Entity
         refEntity.set(1, new Steve("Гоша",20,2,50,24,10)); //\-------------- Adding Steve in Entity
         Items.initialize();
         for(int i = 0 ;i < refEntity.size();++i){ // Reference Array
@@ -40,7 +40,7 @@ public class Main  {
         try {
             input = sc.next();
             menu_entity_ch = Integer.parseInt(input);
-            if(menu_entity_ch < 0|| menu_entity_ch > entity.size()){
+            if(menu_entity_ch < 0|| menu_entity_ch >= entity.size()){
                 System.out.println("\u001B[31m"+ "Введення некоректне!!!\n" + "\u001B[0m");
                 safe();
             }
