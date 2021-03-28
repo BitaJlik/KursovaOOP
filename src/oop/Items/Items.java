@@ -1,12 +1,17 @@
 package oop.Items;
 
+import oop.World;
+
 import java.util.ArrayList;
 
 public abstract class Items  {
+
     public static ArrayList<Items> items = new ArrayList<>();
+
     private String name;
     private int id ;
     private double price;
+    private double feed;
     private int amount = 0;
     private int digSeconds;
     //-------------------- Default methods
@@ -20,13 +25,13 @@ public abstract class Items  {
     public void setAmount(int amount) { this.amount = this.amount + amount; }
     public int getDigseconds() { return digSeconds; }
     public void setDigseconds(int digSeconds) { this.digSeconds = digSeconds; }
+    public double getFeed() { return feed; }
+    public void setFeed(double feed) { this.feed = feed; }
     //------------------------
     public static void initialize(){
-        items.add( new Ores("Алмаз",0,10,5,0));
-        items.add( new Ores("Золото",1,8,5,0));
-        items.add( new Ores("Залізо",2,4,3,0));
-        items.add( new Ores("Свинець",3,4,3,0));
-        items.add( new Ores("Мідь",4,3,3,0));
+        Ores.oresinit();
+        Food.foodsinit();
+        World.registryItems();
     }
 
 }

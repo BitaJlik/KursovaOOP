@@ -42,12 +42,16 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entity entity = (Entity) o;
-        return hp == entity.hp &&
-                name.equals(entity.name) &&
-                id == entity.id &&
-                damage == entity.damage;
+        return this.hp == entity.hp &&
+                this.name.equals(entity.name) &&
+                this.id == entity.id &&
+                this.damage == entity.damage;
     }
-    public int compareTo(Entity entity){
+    public int compareTo(Entity entity) {
         return Double.compare(this.hp, entity.hp);
+    }
+    @Override
+    protected Entity clone() throws CloneNotSupportedException{
+        return (Entity) super.clone();
     }
 }

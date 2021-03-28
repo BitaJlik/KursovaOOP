@@ -8,8 +8,8 @@ import java.util.stream.IntStream;
 
 import static oop.MainMenu.menu_entity_ch;
 
-public class Main  {
-
+public class Main {
+    public static World world = new World(500);
     public static Home home = new Home(); // Adding Home to game
     static int SizeMap = 500;
     static Scanner sc = new Scanner(System.in);
@@ -19,16 +19,17 @@ public class Main  {
     static ArrayList<Entity> entity = new ArrayList<>();
     static ArrayList<Entity> refEntity = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         System.out.println("Скільки об'єктів буде?");
         size = sc.nextInt();
-
-        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(Math.random()*10),2)));     //\---------- Making list Entity
+        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(1 +Math.random()*10),2)));     //\---------- Making list Entity
         refEntity.set(1, new Steve("Гоша",20,2,50,24,10)); //\-------------- Adding Steve in Entity
         Items.initialize();
+
         for(int i = 0 ;i < refEntity.size();++i){ // Reference Array
             entity.add(i,refEntity.get(i));
         }
+
         // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");

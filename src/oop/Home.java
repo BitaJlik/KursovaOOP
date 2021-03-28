@@ -24,7 +24,7 @@ public class Home {
 //-----------------------------
     private void Healing(Entity entity){ entity.setHp(entity.getHp() + hp); }
     //-----------------------
-    public void Sell(int choose, Entity entity){
+    public  void Sell(int choose, Entity entity){
         if(Items.items.get(choose).getId()!=-1){
             if(Items.items.get(choose).getAmount() <= 0 ){
                 System.out.println("\u001B[35m"+"Немає в наявності!"+"\u001B[0m");
@@ -32,9 +32,20 @@ public class Home {
                 MainMenu.cls();
             }
             else {
-                System.out.println("\u001B[33m"+"Продано " + Items.items.get(choose).getName()+"\u001B[0m");
-                entity.setMoney(entity.getMoney() + Items.items.get(choose).getPrice());
-                Items.items.get(choose).setAmount(-1);
+                System.out.println("Введіть кількість: ");
+                String amo = MainMenu.sc.next();
+                int amount = 1;
+                try {
+                    amount = Integer.parseInt(amo);
+                    System.out.println("\u001B[33m"+"Продано " + Items.items.get(choose).getName()+"\u001B[0m");
+                    entity.setMoney(entity.getMoney() + Items.items.get(choose).getPrice() * amount);
+                    Items.items.get(choose).setAmount(-1 * amount);
+                }
+                catch (NumberFormatException e){
+                    System.out.println("Неправильне введення!");
+                    Sell(choose,entity);
+                }
+
             }
         }
     }

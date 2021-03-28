@@ -1,6 +1,9 @@
 package oop.Items;
 
+import java.util.ArrayList;
+
 public class Ores extends Items{
+    public static ArrayList<Items> ores = new ArrayList<>();
     private String name;
     private int id;
     private double price;
@@ -13,9 +16,7 @@ public class Ores extends Items{
         this.amount = amount;
         this.digSeconds = digSeconds;
     }
-    public Ores(){ // If object is not correct
-        this("Неизвестно",-1,0,-1,1);
-    }
+    public Ores(){ this("Неизвестно",-1,0,-1,1); }// If object is not correct
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public int getId() { return id; }
@@ -29,5 +30,12 @@ public class Ores extends Items{
     @Override
     public String toString(){
         return "Руда  "+ name + " | " +"\u001B[32m"+ price +"\u001B[0m" +"$ ";
+    }
+    public static void oresinit(){
+        ores.add( new Ores("Алмаз",0,10,5,0));
+        ores.add( new Ores("Золото",1,8,5,0));
+        ores.add( new Ores("Залізо",2,4,3,0));
+        ores.add( new Ores("Свинець",3,4,3,0));
+        ores.add( new Ores("Мідь",4,3,3,0));
     }
 }

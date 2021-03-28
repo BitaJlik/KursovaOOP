@@ -33,9 +33,11 @@ public class Steve extends Entity {
     //--------------------   Actions
     public void Attack() { System.out.println("\u001B[31m" + name +" атакує!" + "\u001B[0m"); }
     public void Healing(double heal){
+        if(this.hp > 1){
         double hp = getHp();
         setHp(hp + heal);
         System.out.println("\u001B[31m" + name + " + "+ Math.round(heal) + " hp!" + "\u001B[0m");
+        }
     }
     public void Death(){
         System.out.println(name + "\u001B[31m"  + " помирає" + "\u001B[0m");
@@ -44,9 +46,11 @@ public class Steve extends Entity {
         this.id = -1;
     }
     public void Sleeping() {
-        System.out.println(name +"\u001B[32m" + " Спить" + "\u001B[0m");
-        Progress.func(2);
-        Healing(3);
+        if(this.hp > 1){
+             System.out.println(name +"\u001B[32m" + " Спить" + "\u001B[0m");
+             Progress.func(2);
+             Healing(3);
+        }
     }
     //----------------------------- Movements
     public  void moveUp(){ setY(getY() + speed); }
@@ -83,6 +87,16 @@ public class Steve extends Entity {
     public String toString() {
         return "Steve  {" + "\u001B[35m" +" Name= " + name  +" Id= " + id + " Money= " + money + "$" +
                 "\u001B[31m"+" Hp= " + f.format(hp) +"\u001B[36m"+ " Damage= " + damage +"\u001B[0m" + " x: " + x + "| y: "+ y +" }";
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Steve entity = (Steve) o;
+        return this.hp == entity.hp &&
+                this.name.equals(entity.name) &&
+                this.id == entity.id &&
+                this.damage == entity.damage;
     }
     public static int compareTo(Entity other,Entity entity1) {
         return other.getName().compareTo(entity1.getName());
