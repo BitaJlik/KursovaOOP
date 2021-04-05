@@ -5,7 +5,7 @@ public interface Defalut {
     default void Attack(){}
     default void Healing(double heal){}
     default void Death(){}
-    default void Sleeping(){}
+    //default void Sleeping(){}
     //------------------------------
     default void moveUp(){ }
     default void moveDown(){ }

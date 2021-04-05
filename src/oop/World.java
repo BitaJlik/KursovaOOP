@@ -1,5 +1,7 @@
 package oop;
 
+import oop.Entities.Entity;
+import oop.Entities.Steve;
 import oop.Items.Food;
 import oop.Items.Items;
 import oop.Items.Ores;
@@ -8,9 +10,7 @@ public class World {
     private final int sizeWorld;
     private boolean isDay = true;
 
-    public World( int sizeWorld){
-        this.sizeWorld = sizeWorld;
-        }
+    public World( int sizeWorld){ this.sizeWorld = sizeWorld; }
     public int getSizeWorld(){return this.sizeWorld;}
     public void Day() { this.isDay = true; }
     public void Night() { this.isDay = false;}

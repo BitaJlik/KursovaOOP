@@ -1,8 +1,11 @@
 package oop;
 
+import oop.Entities.Entity;
+import oop.Entities.Spider;
+import oop.Entities.Steve;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 import static oop.Items.Items.items;
@@ -11,7 +14,6 @@ import static oop.Main.*;
 public class MainMenu {
 
     static int menu_entity_ch ;
-    static int entity_ch;
     static int ch2;
     static Scanner sc = new Scanner(System.in);
 
@@ -19,7 +21,7 @@ public class MainMenu {
         if(obj.getClass() == Spider.class){
             menulistSpider(obj);
         }
-        if(obj.getClass()== Steve.class){
+        if(obj instanceof Steve){
             menulistSteve(obj);
         }
         System.out.print("Що робимо? ");
@@ -67,53 +69,58 @@ public class MainMenu {
             case "4" -> {
                 System.out.println("Режим бою:\n [1] - Звичайний [2] - " + "\u001B[31m" + "Насмерть" + "\u001B[m");
                 String choosebatlle = sc.next();
-                if (choosebatlle.equals("2")) {
-                    System.out.println("Виберіть  героя для бою : ");
-                    String ch = sc.next();
-                    try {
-                        ch2 = Integer.parseInt(ch);
-                    } catch (NumberFormatException e) {
-                        System.out.println("\u001B[31m" + "Некоректне введеня!" + "\u001B[0m");
-                        Progress.Waiting(1000);
-                        cls();
-                        menu(obj);
-                    }
-                    if (ch2 >= entity.size() || ch2 < 0) {
-                        menu(obj);
-                    } else {
-                        if (entity_ch == ch2) {
-                            System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                switch (choosebatlle) {
+                    case "2" -> {
+                        System.out.println("Виберіть створіння для бою : ");
+                        String ch = sc.next();
+                        try {
+                            ch2 = Integer.parseInt(ch);
+                        } catch (NumberFormatException e) {
+                            System.out.println("\u001B[31m" + "Некоректне введеня!" + "\u001B[0m");
+                            Progress.Waiting(1000);
+                            cls();
                             menu(obj);
-                        } else if (entity.get(entity_ch).getId() == -1 || entity.get(ch2).getId() == -1) {
-                            System.out.println("Одне з створінь мертве");
-                            menu(entity.get(menu_entity_ch));
-                        } else Deathbatlle(entity.get(entity_ch), entity.get(ch2));
-                    }
-                }
-                else {
-                System.out.println("Виберіть створіння для бою : ");
-                String ch = sc.next();
-                try {
-                    ch2 = Integer.parseInt(ch);
-                } catch (NumberFormatException e) {
-                    System.out.println("\u001B[31m" + "Некоректне введеня!" + "\u001B[0m");
-                    Progress.Waiting(1000);
-                    cls();
-                    menu(obj);
-                }
-                if (ch2 >= entity.size() || ch2 < 0) {
-                    menu(obj);
-                } else {
+                        }
+                        if (ch2 >= entity.size() || ch2 < 0) {
+                            menu(obj);
+                        } else {
 
-                        if (obj.equals(entity.get(ch2))) {
-                            System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
-                            menu(obj);
-                        } else if (obj.getId() == -1 || entity.get(ch2).getId() == -1) {
-                            System.out.println("Одне з створінь мертве");
-                            menu(obj);
-                        } else
-                            Batlle(obj, entity.get(ch2));
+                            if (obj.equals(entity.get(ch2))) {
+                                System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                                menu(obj);
+                            } else if (obj.getId() == -1 || entity.get(ch2).getId() == -1) {
+                                System.out.println("Одне з створінь мертве");
+                                menu(obj);
+                            } else
+                                Deathbatlle(obj, entity.get(ch2));
+                        }
                     }
+                    case "1" -> {
+                        System.out.println("Виберіть створіння для бою : ");
+                        String ch = sc.next();
+                        try {
+                            ch2 = Integer.parseInt(ch);
+                        } catch (NumberFormatException e) {
+                            System.out.println("\u001B[31m" + "Некоректне введеня!" + "\u001B[0m");
+                            Progress.Waiting(1000);
+                            cls();
+                            menu(obj);
+                        }
+                        if (ch2 >= entity.size() || ch2 < 0) {
+                            menu(obj);
+                        } else {
+
+                            if (obj.equals(entity.get(ch2))) {
+                                System.out.println("\u001B[31m" + "Створіння само з собою не може проводити бої!" + "\u001B[0m");
+                                menu(obj);
+                            } else if (obj.getId() == -1 || entity.get(ch2).getId() == -1) {
+                                System.out.println("Одне з створінь мертве");
+                                menu(obj);
+                            } else
+                                Batlle(obj, entity.get(ch2));
+                        }
+                    }
+                    default -> System.out.println("Нічого не введено");
                 }
                 menu(obj);
             }
@@ -160,14 +167,12 @@ public class MainMenu {
             case "9" ->{
                 System.out.println("Куди йдемо? [1] - Шахта \t[2] - Всередину острова");
                 String side = sc.next();
-                if(side.equals("1")){
-                    MineCave.Dig(obj);
+                switch (side) {
+                    case "1" -> MineCave.Dig(obj);
+                    case "2" -> world.SeekFood(obj);
+                    case "-1" -> menu(obj);
+                    default -> System.out.println("Не введено параметр");
                 }
-                else if(side.equals("2")){
-                    world.SeekFood(obj);
-                }
-                else if(side.equals("-1")){menu(obj);}
-                else System.out.println("Не введено параметр");
                 menu(obj);
             }
 //------------------------------------------ Sleep
@@ -180,31 +185,15 @@ public class MainMenu {
             }
 //------------------------------------------ Exit
             case "-1" ->{}
-//------------------------------------------ Sort
-            case "00" ->{
-                sort(obj);
-                menu(obj);
-            }
+//------------------------------------------ Binary Search by new obj
             case "000" ->{
-                sort(obj);
-                System.out.println("BinarySearch");
-                System.out.println("За яким критерієм шакуємо?\n [1] - Hp [2] - Damage");
-                String cho = sc.next();
-
-                if(cho.equals("1")){
-                    System.out.println("Введіть кількість hp: ");
-                    Entity temp = new Spider("Павук",sc.nextDouble(),2);
-                        int index = Collections.binarySearch(entity,temp);
-                        System.out.println(index);
-                }
-                else if(cho.equals("2")){
-                    System.out.println("Введіть кількість Damage: ");
-                    Entity temp = new Spider("Temp",0,sc.nextDouble());
-                    int index = Collections.binarySearch(entity,temp,new EntityHp());
-                    System.out.println(index);
-                }
+                Collections.sort(entity);
+                System.out.println("Введіть ім'я шуканого");
+                System.out.println(Collections.binarySearch(entity,
+                        new Spider(sc.next(), 2, 2)) );
                 menu(obj);
             }
+//------------------------------------------ Making competition
             case "01" ->{
                 ArrayList<Entity> fstGroup = new ArrayList<>();
                 ArrayList<Entity> scndGroup = new ArrayList<>();
@@ -249,6 +238,7 @@ public class MainMenu {
                         scndGroup.add(entity.get(i).clone());
                     }
                 }
+                else System.out.println("Неможливо поділити на дві рівні групи!");
                 System.out.println("Яку групу видалити? [1] - Першу половину [2] - другу половину");
                 String chose = sc.next();
                 switch (chose) {
@@ -283,7 +273,7 @@ public class MainMenu {
     }
 
     public static void Invetory(Entity obj) throws CloneNotSupportedException {
-        if(obj.getClass() == Steve.class ) { //---------- ONLY STEVE-------\\
+        if(obj instanceof Steve ) { //---------- ONLY STEVE-------\\
 
             SeeItems(obj);
             System.out.println("\n\n[-2] - Продати предмет \t [-1] - Вихід");
@@ -314,7 +304,7 @@ public class MainMenu {
         }
     }
     public static void SeeItems(Entity obj){
-        if(obj.getClass() == Steve.class ) {
+        if(obj instanceof Steve) {
             int check=0,empty =0;
             for(int i = 0;i<items.size();++i){
                 if(items.get(i).getAmount() <= 0){
@@ -331,7 +321,7 @@ public class MainMenu {
         }
     }
     public static void SellItem(Entity obj) throws CloneNotSupportedException {
-        if(obj.getClass() == Steve.class ) {
+        if(obj instanceof Steve ) {
             System.out.println("Що продати?\t [-1] Назад");
             int chooseinv = sc.nextInt();
             if(chooseinv < -1 || chooseinv >= items.size()){
@@ -437,8 +427,7 @@ public class MainMenu {
         String ch = sc.next();
         try {
             int choose = Integer.parseInt(ch);
-            if(choose >= entity.size()||choose < 0){}
-            else {
+            if (choose < entity.size() && choose >= 0) {
             System.out.println("Видалено " + entity.get(choose).getName());
             entity.remove(choose);
             ChangeEntity();
@@ -514,50 +503,50 @@ public class MainMenu {
             }
         }
     }
-    public static void sort(Entity obj) throws CloneNotSupportedException {
-        System.out.println("Сортування:\n [1] - Comparable [2] - Анонімним класом(Only Hp) ");
-        String chooseSort = sc.next();
-        if(chooseSort.equals("1")){
-            System.out.println("Відсортувати за:\n [1] - Hp [2] - Ім'ям");
-            chooseSort = sc.next();
-            if(chooseSort.equals("1")){
-                entity.sort(Spider::compareTo);
-                SeeEntity();
-                menu(obj);
-            }
-            else if(chooseSort.equals("2")){
-                entity.sort(Steve::compareTo);
-                SeeEntity();
-                menu(obj);
-            }
+    // public static void sort(Entity obj) throws CloneNotSupportedException {
+    //     System.out.println("Сортування:\n [1] - Comparable [2] - Анонімним класом(Only Hp) ");
+    //     String chooseSort = sc.next();
+    //     if(chooseSort.equals("1")){
+    //         System.out.println("Відсортувати за:\n [1] - Hp [2] - Ім'ям");
+    //         chooseSort = sc.next();
+    //         if(chooseSort.equals("1")){
+    //             entity.sort(Spider::compareTo);
+    //             SeeEntity();
+    //             menu(obj);
+    //         }
+    //         else if(chooseSort.equals("2")){
+    //             entity.sort(Steve::compareTo);
+    //             SeeEntity();
+    //             menu(obj);
+    //         }
 
-        }
-        else if(chooseSort.equals("2")) {
-            System.out.println("Сортувати за:  [1] - Зростанням [2] - Спаданням");
-            chooseSort = sc.next();
-            if (chooseSort.equals("1")) {
+    //     }
+    //     else if(chooseSort.equals("2")) {
+    //         System.out.println("Сортувати за:  [1] - Зростанням [2] - Спаданням");
+    //         chooseSort = sc.next();
+    //         if (chooseSort.equals("1")) {
 
-                entity.sort(new Comparator<Entity>() {
-                    @Override
-                    public int compare(Entity o1, Entity o2) {
-                        int a = (int) o1.getHp();
-                        int b = (int) o2.getHp();
-                        return a > b ? 1 : a == b ? 30 : -1;
-                    }
-                });
-            } else if (chooseSort.equals("2")) {
-                entity.sort(new Comparator<Entity>() {
-                    @Override
-                    public int compare(Entity o1, Entity o2) {
-                        int a = (int) o1.getHp();
-                        int b = (int) o2.getHp();
-                        return a < b ? 1 : a == b ? 30 : -1;
-                    }
-                });
-            }
-            SeeEntity();
-        }
-    }
+    //             entity.sort(new Comparator<Entity>() {
+    //                 @Override
+    //                 public int compare(Entity o1, Entity o2) {
+    //                     int a = (int) o1.getHp();
+    //                     int b = (int) o2.getHp();
+    //                     return a > b ? 1 : a == b ? 30 : -1;
+    //                 }
+    //             });
+    //         } else if (chooseSort.equals("2")) {
+    //             entity.sort(new Comparator<Entity>() {
+    //                 @Override
+    //                 public int compare(Entity o1, Entity o2) {
+    //                     int a = (int) o1.getHp();
+    //                     int b = (int) o2.getHp();
+    //                     return a < b ? 1 : a == b ? 30 : -1;
+    //                 }
+    //             });
+    //         }
+    //         SeeEntity();
+    //     }
+    // }
     public static void menulistSpider(Entity obj){
         System.out.println(
                 "\nВибрано : " + obj.getName() +

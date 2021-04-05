@@ -1,5 +1,8 @@
 package oop;
 
+import oop.Entities.Entity;
+import oop.Entities.Spider;
+import oop.Entities.SteveMiddle;
 import oop.Items.Items;
 
 import java.util.ArrayList;
@@ -8,10 +11,10 @@ import java.util.stream.IntStream;
 
 import static oop.MainMenu.menu_entity_ch;
 
-public class Main {
-    public static World world = new World(500);
-    public static Home home = new Home(); // Adding Home to game
+public class Main  {
     static int SizeMap = 500;
+    public static World world = new World(SizeMap);
+    public static Home home = new Home();
     static Scanner sc = new Scanner(System.in);
     static int size ;
     static String input;
@@ -20,22 +23,25 @@ public class Main {
     static ArrayList<Entity> refEntity = new ArrayList<>();
 
     public static void main(String[] args) throws CloneNotSupportedException {
+        launch();
+
+    }
+    public static void launch() throws CloneNotSupportedException{
         System.out.println("Скільки об'єктів буде?");
         size = sc.nextInt();
-        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(1 +Math.random()*10),2)));     //\---------- Making list Entity
-        refEntity.set(1, new Steve("Гоша",20,2,50,24,10)); //\-------------- Adding Steve in Entity
+        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(1 +Math.random()*10),2)));
+        refEntity.set(1, new oop.Entities.Steve("Гоша",20,4));
+        refEntity.add(new SteveMiddle(20,"Макс",30,4));
         Items.initialize();
 
         for(int i = 0 ;i < refEntity.size();++i){ // Reference Array
             entity.add(i,refEntity.get(i));
         }
-
         // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");
         safe();
         MainMenu.menu(entity.get(menu_entity_ch));
-        System.out.println(refEntity.get(1));
     }
     public static void safe(){
         try {

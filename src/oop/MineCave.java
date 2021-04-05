@@ -1,18 +1,19 @@
 package oop;
 
+import oop.Entities.Entity;
+import oop.Entities.Spider;
+import oop.Entities.Steve;
 import oop.Items.Ores;
 
 public class MineCave {
     private double x;
     private double y;
-    private final double hp = 3;
-    //----------------------------
+    //-------------------------------
     public double getX() { return x; }
     public void setX(double x) { this.x = x; }
-    //----------------------------------------------
+    //-----------------------------------------
     public double getY() { return y; }
     public void setY(double y) { this.y = y; }
-
     // ------------------------------------------ ONLY STEVE-------\\
     public static void Fight(Entity obj){
         if(obj.getClass() == Steve.class){
@@ -22,7 +23,7 @@ public class MineCave {
             }
         }
     }
-    //-----------------------------
+    //---------------------------------
     public static void Dig(Entity obj){
         if(obj.getClass() == Steve.class ) {
             double id = Math.round( Math.random() * Ores.ores.size() );

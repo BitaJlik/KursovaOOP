@@ -1,5 +1,7 @@
 package oop;
 
+import oop.Entities.Entity;
+import oop.Entities.Steve;
 import oop.Items.Items;
 
 public class Home {
@@ -34,7 +36,7 @@ public class Home {
             else {
                 System.out.println("Введіть кількість: ");
                 String amo = MainMenu.sc.next();
-                int amount = 1;
+                int amount;
                 try {
                     amount = Integer.parseInt(amo);
                     System.out.println("\u001B[33m"+"Продано " + Items.items.get(choose).getName()+"\u001B[0m");

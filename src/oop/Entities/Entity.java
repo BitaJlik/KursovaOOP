@@ -1,4 +1,4 @@
-package oop;
+package oop.Entities;
 
 import oop.Actions.Defalut;
 
@@ -10,7 +10,11 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     private double x;
     private double y;
     private double speed;
-    private double money;
+    public Entity(String _name,double _hp,double _damage){
+        this.name = _name;
+        this.hp = _hp;
+        this.damage = _damage;
+    }
 
     //------------------------------ Getters & Setters
     public double getX() { return x; }
@@ -34,24 +38,14 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     public double getDamage() { return damage; }
     public void setDamage(double damage) { this.damage = damage; }
     //---------------------(ONLY STEVE)-------------------------------\\
-    public double getMoney() { return money; }
-    public void setMoney(double money) { this.money = money; }
-    //
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Entity entity = (Entity) o;
-        return this.hp == entity.hp &&
-                this.name.equals(entity.name) &&
-                this.id == entity.id &&
-                this.damage == entity.damage;
-    }
+    public double getMoney(){return 1;}
+    public void setMoney(double money){}
+    //--------------------------------------------------------
     public int compareTo(Entity entity) {
-        return Double.compare(this.hp, entity.hp);
+        return Integer.compare(id, entity.id);
     }
     @Override
-    protected Entity clone() throws CloneNotSupportedException{
+    public Entity clone() throws CloneNotSupportedException{
         return (Entity) super.clone();
     }
 }
