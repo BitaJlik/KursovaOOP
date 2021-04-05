@@ -12,8 +12,15 @@ public abstract class Items  {
     private int id ;
     private double price;
     private double feed;
-    private int amount = 0;
+    private int amount;
     private int digSeconds;
+    public Items(String name, int id, double price ,  int amount, int digSeconds){
+        this.name = name;
+        this.id = id;
+        this.price = price;
+        this.amount = amount;
+        this.digSeconds = digSeconds;
+    }
     //-------------------- Default methods
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

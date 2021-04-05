@@ -37,6 +37,7 @@ public class Main  {
         for(int i = 0 ;i < refEntity.size();++i){ // Reference Array
             entity.add(i,refEntity.get(i));
         }
+        System.out.println(entity.get(5).getChance());
         // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");

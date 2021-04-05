@@ -40,6 +40,8 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     //---------------------(ONLY STEVE)-------------------------------\\
     public double getMoney(){return 1;}
     public void setMoney(double money){}
+    public double getChance(){return 1;}
+    public void setChance(double chance){}
     //--------------------------------------------------------
     public int compareTo(Entity entity) {
         return Integer.compare(id, entity.id);
