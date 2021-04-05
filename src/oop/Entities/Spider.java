@@ -38,7 +38,7 @@ public class Spider extends Entity {
     DecimalFormat f = new DecimalFormat("##.00");
     @Override
     public String toString() {
-        return "Spider {" + "\u001B[35m" +" Name= " + super.getName()  +" Id= " + super.getId() +
+        return "Павук {" + "\u001B[35m" +" Name= " + super.getName()  +" Id= " + super.getId() +
                 "\u001B[31m"+" Hp= " + f.format(super.getHp()) +"\u001B[36m"+ " Damage= " + super.getDamage() +
                 "\u001B[32m" + " x: " + super.getX() +" | " +"y: "+ super.getY() + "\u001B[0m"+" }";
     }

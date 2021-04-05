@@ -48,7 +48,7 @@ public class Steve extends Entity {
     DecimalFormat f = new DecimalFormat("##.00");
     @Override
     public String toString() {
-        return "Steve  {" + "\u001B[35m" +" Name= " + super.getName()  +" Id= " + super.getId() +
+        return "Стів Новачок  {" + "\u001B[35m" +" Name= " + super.getName()  +" Id= " + super.getId() +
                 " Money= " + money + "$" + "\u001B[31m"+" Hp= " + f.format(super.getHp()) +
                 "\u001B[36m"+ " Damage= " + super.getDamage() +"\u001B[0m"
                 + " x: " + super.getX() + "| y: "+ super.getY() +" }";

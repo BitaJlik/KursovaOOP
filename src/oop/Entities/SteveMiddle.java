@@ -17,4 +17,16 @@ public class SteveMiddle extends Steve{
             System.out.println("Критичний удар!!!");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Стів Бувалий {" + "\u001B[35m" + " " +
+                "Name= " + super.getName()  + " " +
+                "Id= " + super.getId() + "\u001B[31m" + " "+
+                "Hp= " + f.format(super.getHp()) +"\u001B[36m"+ " " +
+                "Damage= " + super.getDamage() + "\u001B[32m" + " " +
+                "x: " + super.getX() +" | " +
+                "y: " + super.getY() + "\u001B[0m"+" }";
+    }
+
 }
