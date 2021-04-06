@@ -1,10 +1,12 @@
-package oop;
+package oop.Structures;
 
 import oop.Entities.Entity;
 import oop.Entities.Steve;
 import oop.Items.Food;
 import oop.Items.Items;
 import oop.Items.Ores;
+import oop.MainMenu;
+import oop.Progress;
 
 public class World {
     private final int sizeWorld;
@@ -15,6 +17,9 @@ public class World {
     public void Day() { this.isDay = true; }
     public void Night() { this.isDay = false;}
     public boolean isDay() { return isDay; }
+
+    public static Home home = new Home(20,20);
+    public static MineCave cave = new MineCave(100,100);
 
     public static void registryItems(){
         Items.items.addAll(Ores.ores);

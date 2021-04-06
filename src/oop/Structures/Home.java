@@ -1,13 +1,19 @@
-package oop;
+package oop.Structures;
 
 import oop.Entities.Entity;
 import oop.Entities.Steve;
 import oop.Items.Items;
+import oop.MainMenu;
+import oop.Progress;
 
 public class Home {
     private double x;
     private double y;
     private final double hp = 3;
+    public Home(double x,double y){
+        this.x = x;
+        this.y = y;
+    }
 //----------------------------
     public double getX() { return x; }
     public void setX(double x) { this.x = x; }
@@ -35,7 +41,7 @@ public class Home {
             }
             else {
                 System.out.println("Введіть кількість: ");
-                String amo = MainMenu.sc.next();
+                String amo = oop.Main.sc.next();
                 int amount;
                 try {
                     amount = Integer.parseInt(amo);

@@ -3,6 +3,7 @@ package oop;
 import oop.Entities.Entity;
 import oop.Entities.Spider;
 import oop.Entities.Steve;
+import oop.Structures.World;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -137,17 +138,11 @@ public class MainMenu {
             case "7" -> {
                 System.out.println("Куди йдемо?");
                 String where = sc.next();
-                System.out.println("Наскільки ми йдемо?");
-                int movestep = sc.nextInt();
-                if(movestep >= SizeMap){
+               if( obj.getX() + obj.getSpeed() >= SizeMap){
                     System.out.println("Він знаходиться на крайній точці!");
                     menu(obj);
                 }
-                else if(movestep + obj.getX() >= SizeMap){
-                    System.out.println("Він знаходиться на крайній точці!");
-                    menu(obj);
-                }
-                else if(movestep + obj.getY() >= SizeMap){
+                else if( obj.getY() + obj.getSpeed() >= SizeMap){
                     System.out.println("Він знаходиться на крайній точці!");
                     menu(obj);
                 }
@@ -157,6 +152,7 @@ public class MainMenu {
                         case "Вниз","вниз"     -> obj.moveDown();
                         case "Вліво","вліво"   -> obj.moveLeft();
                         case "Вправо","вправо" -> obj.moveRight();
+                        default -> System.out.println("Не вибрано");
                     }
                     menu(obj);
                 }
@@ -168,14 +164,14 @@ public class MainMenu {
                 System.out.println("Куди йдемо? [1] - Шахта \t[2] - Всередину острова");
                 String side = sc.next();
                 switch (side) {
-                    case "1" -> MineCave.Dig(obj);
+                    case "1" -> World.cave.Dig(obj);
                     case "2" -> world.SeekFood(obj);
                     case "-1" -> menu(obj);
                     default -> System.out.println("Не введено параметр");
                 }
                 menu(obj);
             }
-//------------------------------------------ Sleep
+//------------------------------------------
             case "0" -> {
                 System.out.println("[1] - День \t[2] - Ніч");
                 String time = sc.next();
@@ -334,7 +330,7 @@ public class MainMenu {
                     cls();
                     Invetory(obj);
                 } else
-                    home.Sell(chooseinv, obj); // Trying to use seller with objects
+                    World.home.Sell(chooseinv, obj); // Trying to use seller with objects
             }
             Invetory(obj);
         }
@@ -346,8 +342,8 @@ public class MainMenu {
                 System.out.print( " - Мертвий \n" + "\u001B[0m");
             }
             else  {
-                // System.out.println("|" + i + "| " + entity.get(i).getName());
-                System.out.println( "|" + i + "| " + entity.get(i));
+                System.out.println("|" + i + "| " + entity.get(i).getName());
+                //System.out.println( "|" + i + "| " + entity.get(i));
             }
         }
     }
@@ -389,7 +385,7 @@ public class MainMenu {
             System.out.println("Виберіть місце для створення");
             SeeEntity();
             int choosen = sc.nextInt();
-            if (choosen > size) {
+            if (choosen > sizeent) {
                 System.out.println("\u001B[31m" + "Місце перевищує розмір!\n" + "\u001B[0m");
                 menu(entity.get(0));
             } else {

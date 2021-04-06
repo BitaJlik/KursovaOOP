@@ -4,6 +4,7 @@ import oop.Entities.Entity;
 import oop.Entities.Spider;
 import oop.Entities.SteveMiddle;
 import oop.Items.Items;
+import oop.Structures.World;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,9 +15,8 @@ import static oop.MainMenu.menu_entity_ch;
 public class Main  {
     static int SizeMap = 500;
     public static World world = new World(SizeMap);
-    public static Home home = new Home();
-    static Scanner sc = new Scanner(System.in);
-    static int size ;
+    public static Scanner sc = new Scanner(System.in);
+    static int sizeent ;
     static String input;
 
     static ArrayList<Entity> entity = new ArrayList<>();
@@ -28,16 +28,15 @@ public class Main  {
     }
     public static void launch() throws CloneNotSupportedException{
         System.out.println("Скільки об'єктів буде?");
-        size = sc.nextInt();
-        IntStream.range(0, size).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(1 +Math.random()*10),2)));
+        sizeent = sc.nextInt();
+        IntStream.range(0, sizeent).forEach(i -> refEntity.add(i,new Spider("Павук",Math.round(1 +Math.random()*10),2)));
         refEntity.set(1, new oop.Entities.Steve("Гоша",20,4));
         refEntity.add(new SteveMiddle(20,"Макс",30,4));
         Items.initialize();
 
-        for(int i = 0 ;i < refEntity.size();++i){ // Reference Array
-            entity.add(i,refEntity.get(i));
+        for(int i = 0 ;i < refEntity.size();++i) { // Reference Array
+            entity.add(i, refEntity.get(i));
         }
-        System.out.println(entity.get(5).getChance());
         // Others trash
         MainMenu.SeeEntity();
         System.out.println("\n\nВиберіть :");

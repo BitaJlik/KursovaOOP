@@ -1,6 +1,6 @@
 package oop.Items;
 
-import oop.World;
+import oop.Structures.World;
 
 import java.util.ArrayList;
 
