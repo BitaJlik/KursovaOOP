@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0"
+            prefWidth="602.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.Entities.fxml.EntController">
+   <Button fx:id="back" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" onAction="#back" text="Назад"/>
+   <Button fx:id="confirm" layoutX="503.0" layoutY="229.0" mnemonicParsing="false" onAction="#confirm"
+           text="Підтвердити"/>
+   <RadioButton fx:id="radioStevenovice" layoutX="476.0" layoutY="14.0" mnemonicParsing="false" text="Стів новачок"/>
+   <RadioButton fx:id="radioSpider" layoutX="476.0" layoutY="42.0" mnemonicParsing="false" text="Павук"/>
+   <RadioButton fx:id="radioSteveMidlle" layoutX="476.0" layoutY="69.0" mnemonicParsing="false" text="Стів бувалий"/>
+   <TextField fx:id="inName" layoutX="73.0" layoutY="30.0"/>
+   <Label layoutX="15.0" layoutY="34.0" text="Ім'я"/>
+   <Label layoutX="11.0" layoutY="125.0" text="Damage"/>
+   <Label layoutX="17.0" layoutY="78.0" text="Hp"/>
+   <TextField fx:id="inHp" layoutX="73.0" layoutY="74.0"/>
+   <TextField fx:id="inDmg" layoutX="73.0" layoutY="121.0"/>
+</AnchorPane>

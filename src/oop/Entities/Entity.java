@@ -1,6 +1,9 @@
 package oop.Entities;
 
 import oop.Actions.Defalut;
+import oop.Items.Items;
+
+import java.util.ArrayList;
 
 public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     private String name;
@@ -42,12 +45,19 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     public void setMoney(double money){}
     public double getChance(){return 1;}
     public void setChance(double chance){}
+    public void addInv(Items item){ }
+    public void delInv(Items item){ }
+    public ArrayList getInv(){ return null;}
     //--------------------------------------------------------
-    public int compareTo(Entity entity) {
-        return Integer.compare(id, entity.id);
+    public int compareTo(Entity st2)
+    {
+        if( this.name.equals(st2.name) )
+        { return Double.compare(this.hp, st2.hp); }
+        else return this.name.compareTo(st2.name);
     }
     @Override
     public Entity clone() throws CloneNotSupportedException{
         return (Entity) super.clone();
     }
+
 }

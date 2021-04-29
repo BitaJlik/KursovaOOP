@@ -11,7 +11,6 @@ public abstract class Items  {
     private String name;
     private int id ;
     private double price;
-    private double feed;
     private int amount;
     private int digSeconds;
     public Items(String name, int id, double price ,  int amount, int digSeconds){
@@ -32,13 +31,16 @@ public abstract class Items  {
     public void setAmount(int amount) { this.amount = this.amount + amount; }
     public int getDigseconds() { return digSeconds; }
     public void setDigseconds(int digSeconds) { this.digSeconds = digSeconds; }
-    public double getFeed() { return feed; }
-    public void setFeed(double feed) { this.feed = feed; }
+    public double getFeed() { return 0; }
+    public void setFeed(double feed) {  }
     //------------------------
     public static void initialize(){
         Ores.oresinit();
         Food.foodsinit();
         World.registryItems();
+    }
+    public Items clone(){
+        return null;
     }
 
 }

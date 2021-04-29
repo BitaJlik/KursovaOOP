@@ -13,18 +13,23 @@ public class Food extends Items{
 
     public Food(){ this("Неизвестно",-1,0,0,0,0); }// If object is not correct
 
+    public double getFeed() { return this.feed; }
+    public void setFeed(double feed) {this.feed = feed;  }
     //-------------------- Default methods
 
     @Override
     public String toString(){
-        return "Еда  "+ super.getName() + " | " +"\u001B[32m"+ super.getPrice() +"\u001B[0m" +"$ ";
+        return "Food  "+ super.getName() + " | " +"\u001B[32m"+ super.getPrice() +"\u001B[0m" +"$ ("+ super.getAmount() + ")шт.";
     }
 
     public static void foodsinit(){
-        foods.add( new Food("Хлeб",0,1,0,2,5));
-        foods.add( new Food("Яблуко",1,2,0,1,4));
-        foods.add( new Food("Кокос",2,4,0,2,10));
-        foods.add( new Food("Банан",3,4,0,1,8));
-        foods.add( new Food("Риба",4,2,0,1,1));
+        foods.add( new Food("Хлeб",0,1,1,2,5));
+        foods.add( new Food("Яблуко",1,2,1,1,4));
+        foods.add( new Food("Кокос",2,4,1,2,5));
+        foods.add( new Food("Банан",3,4,1,1,4));
+        foods.add( new Food("Риба",4,2,1,1,2));
+    }
+    public Items clone(){
+        return new Food(super.getName(),super.getId(),super.getPrice(),super.getAmount(),getFeed(),super.getDigseconds());
     }
 }

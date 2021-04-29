@@ -3,13 +3,15 @@ package oop.Structures;
 import oop.Entities.Entity;
 import oop.Entities.Steve;
 import oop.Items.Items;
-import oop.MainMenu;
-import oop.Progress;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Home {
+    private final ArrayList<Entity> homeList = new ArrayList<>();
     private double x;
     private double y;
-    private final double hp = 3;
+
     public Home(double x,double y){
         this.x = x;
         this.y = y;
@@ -21,41 +23,22 @@ public class Home {
     public double getY() { return y; }
     public void setY(double y) { this.y = y; }
 //----------------------------
-    public void Start(Entity entity) {
-        if (entity.getClass() == Steve.class) {
-            Healing(entity);
-        }
-        else{
-            entity.setHp(entity.getHp() - hp);
-        }
-    }
+    private void healing(Entity entity){
+        double hp = 3;
+        entity.setHp(entity.getHp() + hp); }
+//-----------------------
+    public void addToHome(Entity obj){ if(obj instanceof Steve) homeList.add(obj); }
+    public void delToHome(int indx){ this.homeList.remove(indx); }
+    public ArrayList getHome(){ return this.homeList; }
+    public void clearHome(){this.homeList.clear();}
 //-----------------------------
-    private void Healing(Entity entity){ entity.setHp(entity.getHp() + hp); }
-    //-----------------------
-    public  void Sell(int choose, Entity entity){
-        if(Items.items.get(choose).getId()!=-1){
-            if(Items.items.get(choose).getAmount() <= 0 ){
-                System.out.println("\u001B[35m"+"Немає в наявності!"+"\u001B[0m");
-                Progress.Waiting(1500);
-                MainMenu.cls();
-            }
-            else {
-                System.out.println("Введіть кількість: ");
-                String amo = oop.Main.sc.next();
-                int amount;
-                try {
-                    amount = Integer.parseInt(amo);
-                    System.out.println("\u001B[33m"+"Продано " + Items.items.get(choose).getName()+"\u001B[0m");
-                    entity.setMoney(entity.getMoney() + Items.items.get(choose).getPrice() * amount);
-                    Items.items.get(choose).setAmount(-1 * amount);
-                }
-                catch (NumberFormatException e){
-                    System.out.println("Неправильне введення!");
-                    Sell(choose,entity);
-                }
-
-            }
+    public  void Sell(int choose, Entity obj) throws IOException, CloneNotSupportedException {
+        ArrayList<Items> temp = new ArrayList(((Steve) obj).getInv());
+        if(temp.get(choose).getAmount() > 0){
+            ((Steve) obj).delInv(temp.get(choose));
+            obj.setMoney(obj.getMoney() + temp.get(choose).getPrice());
+            System.out.println("Продано!");
         }
+        else System.out.println("Недостатня кількість!");
     }
-
 }

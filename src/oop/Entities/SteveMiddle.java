@@ -2,7 +2,7 @@ package oop.Entities;
 
 public class SteveMiddle extends Steve{
     private double chance;
-    public SteveMiddle(double chance,String name,double hp,double damage){
+    public SteveMiddle(String name,double hp,double damage,double chance){
         super(name,hp,damage);
         this.chance = chance;
     }
