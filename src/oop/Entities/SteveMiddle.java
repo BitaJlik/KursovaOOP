@@ -1,6 +1,6 @@
 package oop.Entities;
 
-public class SteveMiddle extends Steve{
+public class SteveMiddle extends Steve {
     private double chance;
     public SteveMiddle(String name,double hp,double damage,double chance){
         super(name,hp,damage);
@@ -28,5 +28,10 @@ public class SteveMiddle extends Steve{
                 "x: " + super.getX() +" | " +
                 "y: " + super.getY() + "\u001B[0m"+" }";
     }
+    @Override
+    public Entity clone(){
+        Entity clone = super.clone();
 
+        return clone;
+    }
 }

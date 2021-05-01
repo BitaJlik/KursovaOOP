@@ -47,9 +47,23 @@ public class MainMenu {
             case  "33" -> deleteEntity(obj);
             case   "4" -> seeEntity(obj);
             case   "5" -> moveFromEntity(obj);
+            case   "6" -> inventory(obj);
             case  "-1" -> System.out.println("Кінець програми!");
             default -> menu(obj);
         }
+    }
+    public static void inventory(Entity obj){
+        if(obj instanceof Steve){
+            System.out.println("====================| Inventory |===================");
+            if(!(obj.getInv().isEmpty()) ){
+                seeInventory(obj);
+            }
+            else System.out.println("Пусто 0_0");
+        }
+        menu(obj);
+    }
+    public static void seeInventory(Entity obj){
+        IntStream.range(0, obj.getInv().size()).mapToObj(i -> "[" + i + "] " + obj.getInv().get(i)).forEach(System.out::println);
     }
     public static void changeEntityFromList() {
         update();

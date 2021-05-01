@@ -1,16 +1,36 @@
 package oop.Entities;
 
+import oop.Items.Items;
 import oop.Progress;
 
 import java.text.DecimalFormat;
-public class Steve extends oop.Entities.Entity {
+import java.util.ArrayList;
+
+public class Steve extends oop.Entities.Entity  {
     private double money;
+    private final ArrayList<Items> inventory = new ArrayList<>();
     //------------------------------- Constructors
     public Steve(String name,double hp, double damage) { super(name,hp,damage); }
-    public Steve(){ this("Стів",20,2); }
+    public Steve(){ this("Steve",20,2); }
     //---------------------(ONLY STEVE)-------------------------------\\
     public double getMoney() { return money; }
     public void setMoney(double money){this.money = money;}
+    //
+    public void addInv(Items item){
+        if(inventory.contains(item)){
+            int inx = inventory.lastIndexOf(item);
+            inventory.get(inx).setAmount(1);
+        }
+        else inventory.add(item);
+    }
+    public void delInv(int index){
+        if(inventory.get(index).getAmount() < 1){
+            inventory.remove(index);
+        }
+        else inventory.get(index).setAmount(-1);
+    }
+    public ArrayList getInv(){ return this.inventory; }
+    public void clearInv(){ inventory.clear(); }
     //--------------------   Actions
     public void Attack() {
         System.out.println("\u001B[31m" + super.getName() +" атакує!" + "\u001B[0m");
@@ -54,7 +74,10 @@ public class Steve extends oop.Entities.Entity {
     public  int compareTo(Entity p){
         return Integer.parseInt(String.valueOf(Double.compare(money, p.getMoney())));
     }
+
+    @Override
     public Entity clone(){
-        return new Steve(super.getName(),super.getHp(),super.getDamage());
+        Entity clone = new Steve(super.getName(),super.getHp(),super.getDamage());
+        return clone;
     }
 }

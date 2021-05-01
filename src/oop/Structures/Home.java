@@ -2,9 +2,7 @@ package oop.Structures;
 
 import oop.Entities.Entity;
 import oop.Entities.Steve;
-import oop.Items.Items;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Home {
@@ -27,18 +25,18 @@ public class Home {
         double hp = 3;
         entity.setHp(entity.getHp() + hp); }
 //-----------------------
-    public void addToHome(Entity obj){ if(obj instanceof Steve) homeList.add(obj); }
+    public void addToHome(Entity obj){ if(obj instanceof Steve) homeList.add(obj);else System.out.println("Це павук!"); }
     public void delToHome(int indx){ this.homeList.remove(indx); }
     public ArrayList getHome(){ return this.homeList; }
     public void clearHome(){this.homeList.clear();}
 //-----------------------------
-    public  void Sell(int choose, Entity obj) throws IOException, CloneNotSupportedException {
-        ArrayList<Items> temp = new ArrayList(((Steve) obj).getInv());
-        if(temp.get(choose).getAmount() > 0){
-            ((Steve) obj).delInv(temp.get(choose));
-            obj.setMoney(obj.getMoney() + temp.get(choose).getPrice());
-            System.out.println("Продано!");
-        }
-        else System.out.println("Недостатня кількість!");
-    }
+//    public  void Sell(int choose, Entity obj) throws IOException, CloneNotSupportedException {
+//        ArrayList<Items> temp = new ArrayList(((Steve) obj).getInv());
+//        if(temp.get(choose).getAmount() > 0){
+//            ((Steve) obj).delInv(temp.get(choose));
+//            obj.setMoney(obj.getMoney() + temp.get(choose).getPrice());
+//            System.out.println("Продано!");
+//        }
+//        else System.out.println("Недостатня кількість!");
+//    }
 }

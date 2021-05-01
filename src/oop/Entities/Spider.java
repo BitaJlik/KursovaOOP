@@ -42,6 +42,4 @@ public class Spider extends Entity {
                 "\u001B[31m"+" Hp= " + f.format(super.getHp()) +"\u001B[36m"+ " Damage= " + super.getDamage() +
                 "\u001B[32m" + " x: " + super.getX() +" | " +"y: "+ super.getY() + "\u001B[0m"+" }";
     }
-
-
 }

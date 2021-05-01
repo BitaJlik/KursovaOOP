@@ -16,4 +16,5 @@
          <Font name="Leelawadee UI" size="12.0" />
       </font>
    </Label>
+   <Button layoutX="46.0" layoutY="166.0" mnemonicParsing="false" onAction="#entityCreate" prefHeight="25.0" prefWidth="129.0" style="-fx-background-color: cyan;" text="Створити об'єкти" />
 </AnchorPane>

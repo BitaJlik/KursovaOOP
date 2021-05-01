@@ -24,11 +24,12 @@ public class World {
     public ArrayList getWorld(){ return this.world; }
     public void clearWorld(){ this.world.clear(); }
 //----------------------------
-    public static void registryItems(){
+    public void registryItems(){
         Items.items.addAll(Ores.ores);
         Items.items.addAll(Food.foods);
     }
     public boolean isAllWorldEmpty(){
+        MainMenu.update();
         return world.size() == 0 && home.getHome().size() == 0 && cave.getCave().size() == 0;
     }
     public void SeekFood(Entity obj){
@@ -39,7 +40,7 @@ public class World {
                     if(!isDay)Cave.Fight(obj);
                     Progress.func(item.getDigseconds());
                     System.out.println("Добули " + item.getName());
-                    obj.addInv(item);
+                   // obj.addInv(item);
                 }
             }
         }

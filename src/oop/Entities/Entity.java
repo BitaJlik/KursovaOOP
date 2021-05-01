@@ -45,9 +45,10 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     public void setMoney(double money){}
     public double getChance(){return 1;}
     public void setChance(double chance){}
-    public void addInv(Items item){ }
-    public void delInv(Items item){ }
-    public ArrayList getInv(){ return null;}
+    public void addInv(Items item){  }
+    public void delInv(int index){   }
+    public ArrayList getInv(){ return null; }
+    public void clearInv(){  }
     //--------------------------------------------------------
     public int compareTo(Entity st2)
     {
@@ -57,7 +58,7 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     }
     @Override
     public Entity clone() throws CloneNotSupportedException{
-        return (Entity) super.clone();
+        return null;
     }
 
 }

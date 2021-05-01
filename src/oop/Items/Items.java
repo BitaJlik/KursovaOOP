@@ -1,6 +1,6 @@
 package oop.Items;
 
-import oop.Structures.World;
+import oop.Main;
 
 import java.util.ArrayList;
 
@@ -13,9 +13,8 @@ public abstract class Items  {
     private double price;
     private int amount;
     private int digSeconds;
-    public Items(String name, int id, double price ,  int amount, int digSeconds){
+    public Items(String name, double price ,  int amount, int digSeconds){
         this.name = name;
-        this.id = id;
         this.price = price;
         this.amount = amount;
         this.digSeconds = digSeconds;
@@ -37,9 +36,9 @@ public abstract class Items  {
     public static void initialize(){
         Ores.oresinit();
         Food.foodsinit();
-        World.registryItems();
+        Main.world.registryItems();
     }
-    public Items clone(){
+    public Items clone()  {
         return null;
     }
 
