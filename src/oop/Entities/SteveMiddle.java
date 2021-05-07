@@ -2,8 +2,12 @@ package oop.Entities;
 
 public class SteveMiddle extends Steve {
     private double chance;
+    public SteveMiddle(String name,double hp,double damage,double chance,String position){
+        super(name,hp,damage,position);
+        this.chance = chance;
+    }
     public SteveMiddle(String name,double hp,double damage,double chance){
-        super(name,hp,damage);
+        super(name,hp,damage,"home");
         this.chance = chance;
     }
     public double getChance(){return this.chance;}
@@ -30,8 +34,7 @@ public class SteveMiddle extends Steve {
     }
     @Override
     public Entity clone(){
-        Entity clone = super.clone();
-
+        Entity clone =  new SteveMiddle(super.getName(), super.getHp(), super.getDamage(), getChance(),super.getPosition());
         return clone;
     }
 }

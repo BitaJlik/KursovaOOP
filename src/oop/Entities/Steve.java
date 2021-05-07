@@ -10,8 +10,9 @@ public class Steve extends oop.Entities.Entity  {
     private double money;
     private final ArrayList<Items> inventory = new ArrayList<>();
     //------------------------------- Constructors
-    public Steve(String name,double hp, double damage) { super(name,hp,damage); }
-    public Steve(){ this("Steve",20,2); }
+    public Steve(String name,double hp, double damage,String position) { super(name,hp,damage,position,"Steve"); }
+    public Steve(String name,double hp, double damage) { super(name,hp,damage,"home","Steve"); }
+    public Steve(){ this("Steve",20,2,"home"); }
     //---------------------(ONLY STEVE)-------------------------------\\
     public double getMoney() { return money; }
     public void setMoney(double money){this.money = money;}
@@ -77,7 +78,7 @@ public class Steve extends oop.Entities.Entity  {
 
     @Override
     public Entity clone(){
-        Entity clone = new Steve(super.getName(),super.getHp(),super.getDamage());
+        Entity clone = new Steve(super.getName(),super.getHp(),super.getDamage(),super.getPosition());
         return clone;
     }
 }

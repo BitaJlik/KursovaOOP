@@ -3,7 +3,9 @@ package oop.Structures;
 import oop.Entities.Entity;
 import oop.Entities.Spider;
 import oop.Entities.Steve;
+import oop.Items.Ores;
 import oop.MainMenu;
+import oop.Progress;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class Cave {
     //-----------------------------------------
     public void addToCave(Entity obj){ this.cave.add(obj); }
     public void delToCave(int indx){ this.cave.remove(indx); }
+    public void delToCave(Entity indx){ this.cave.remove(indx); }
     public ArrayList getCave(){ return this.cave; }
     public void clearCave(){this.cave.clear();}
     // ------------------------------------------ ONLY STEVE-------\\
@@ -32,6 +35,27 @@ public class Cave {
                 MainMenu.deathBatlle(obj,new Spider());
             }
         }
+    }
+    public void dig(Entity obj){
+        int check = 0;
+        for (Entity entity : cave) {
+            if (entity.equals(obj)) {
+                check = 1;
+                break;
+            }
+        }
+        if(check == 1){
+            if (obj instanceof Steve) {
+                int id = (int) (Math.random() * Ores.ores.size());
+                int chance = (int) (Math.random() * 100);
+                if (chance > 60) {
+                    MainMenu.deathBatlle(obj, new Spider());
+                }
+                Progress.func(Ores.ores.get(id).getDigseconds());
+                System.out.println("Добули " + Ores.ores.get(id).getName());
+                obj.addInv(Ores.ores.get(id));
+            }
+        }else System.out.println("\u001B[31mПотрібно піти в шахту!\u001B[0m");
     }
 //    public void Dig(Entity obj){
 //        if(obj instanceof Steve){

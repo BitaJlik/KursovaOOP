@@ -6,11 +6,15 @@ import java.text.DecimalFormat;
 
 public class Spider extends Entity {
     //------------------------------- Constructors
+    public Spider(String name , double hp, double damage,String position) {
+        super(name,hp,damage,position,"Spider");
+
+    }
     public Spider(String name , double hp, double damage) {
         super(name,hp,damage);
 
     }
-    public Spider(){ this("Павук",10,2.2); }
+    public Spider(){ this("Павук",10,2.2,"world"); }
     //------------------------------- Actions
     public void Attack() { System.out.println("\u001B[31m" + super.getName() +" атакує!" + "\u001B[0m"); }
     public void Healing(double heal){

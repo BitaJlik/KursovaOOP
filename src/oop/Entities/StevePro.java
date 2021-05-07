@@ -2,9 +2,15 @@ package oop.Entities;
 
 public class StevePro extends SteveMiddle {
     private int power;
-    public StevePro(String name,double hp,double dmg,double chance,int power){
-        super(name,hp,dmg,chance);
+    public StevePro(String name,double hp,double dmg,double chance,int power,String position){
+        super(name,hp,dmg,chance,position);
         this.power = power;
+
+    }
+    public StevePro(String name,double hp,double dmg,double chance,int power){
+        super(name,hp,dmg,chance,"home");
+        this.power = power;
+
     }
     public int getPower() {return power; }
     public void setPower(int power) { this.power = power; }
@@ -30,5 +36,10 @@ public class StevePro extends SteveMiddle {
                 "Damage= " + super.getDamage() + "\u001B[32m" + " " +
                 "x: " + super.getX() +" | " +
                 "y: " + super.getY() + "\u001B[0m"+" }";
+    }
+    @Override
+    public Entity clone(){
+        Entity clone =  new StevePro(super.getName(), super.getHp(), super.getDamage(), getChance(),getPower(),super.getPosition());
+        return clone;
     }
 }

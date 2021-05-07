@@ -48,22 +48,91 @@ public class MainMenu {
             case   "4" -> seeEntity(obj);
             case   "5" -> moveFromEntity(obj);
             case   "6" -> inventory(obj);
+            case   "7" -> dig(obj);
             case  "-1" -> System.out.println("Кінець програми!");
             default -> menu(obj);
         }
     }
     public static void inventory(Entity obj){
         if(obj instanceof Steve){
-            System.out.println("====================| Inventory |===================");
+            System.out.println("====[-1 Назад]================| Inventory |===============[-2 Продати предмети]====");
             if(!(obj.getInv().isEmpty()) ){
                 seeInventory(obj);
             }
             else System.out.println("Пусто 0_0");
+            String choose = sc.next();
+            if(choose.equals("-1")){
+                menu(obj);
+            }
+            else if(choose.equals("-2")){
+                sellItem(obj);
+            }
+            else {
+                int chooseItem = -1;
+                try{
+                    chooseItem = Integer.parseInt(choose);
+                }
+                catch (NumberFormatException e){
+                    System.out.println("Помилка");
+                }
+                if(chooseItem >= obj.getInv().size()){
+                    inventory(obj);
+                }
+                else if(chooseItem < 0){
+                    inventory(obj);
+                }
+                else {
+                    System.out.println("\033[0;36m"+obj.getInv().get(chooseItem)+"\033[0m");
+                    inventory(obj);
+                }
+            }
+        }
+        menu(obj);
+    }
+    public static void dig(Entity obj){
+        if(obj instanceof Steve) {
+            System.out.println("Куди йдемо? [1] - Шахта  [2] - В середину острова");
+            String choose = sc.next();
+            switch (choose) {
+                case "1" -> {
+                    world.cave.dig(obj);
+                    menu(obj);
+                }
+                case "2" ->{
+                    world.dig(obj);
+                    menu(obj);
+                }
+            }
+        }
+    }
+    public static void sellItem(Entity obj){
+        System.out.println("====[-1 Назад]================\033[0;31m Що продати?\033[0m ===============[-2  Продати все    ]====");
+        seeInventory(obj);
+        String ch = sc.next();
+        try{
+            int choose = Integer.parseInt(ch);
+            if(choose == -1) inventory(obj);
+
+            else if(choose == -2) world.home.sellAll(obj);
+
+            else if(choose >= obj.getInv().size() || choose < 0){
+                sellItem(obj);
+            }
+            else world.home.sell(obj,choose);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Помилка");
+            sellItem(obj);
+        }
+        catch (IndexOutOfBoundsException e){
+            System.out.println("indxofexp");
         }
         menu(obj);
     }
     public static void seeInventory(Entity obj){
-        IntStream.range(0, obj.getInv().size()).mapToObj(i -> "[" + i + "] " + obj.getInv().get(i)).forEach(System.out::println);
+        for(int i = 0;i < obj.getInv().size();++i){
+            System.out.println("["+i+"] " + obj.getInv().get(i));
+        }
     }
     public static void changeEntityFromList() {
         update();
@@ -263,16 +332,17 @@ public class MainMenu {
                         int pos = Integer.parseInt(p);
                         switch (wh) {
                             case "2" -> {
-                                Main.world.cave.addToCave(((Entity) world.home.getHome().get(pos)).clone());
+                                Main.world.cave.addToCave(((Entity) world.home.getHome().get(pos)));
+                                ((Entity)world.home.getHome().get(pos)).setPosition("cave");
                                 Main.world.home.delToHome(pos);
                             }
                             case "3" -> {
-                                Main.world.addToWorld(((Entity) Main.world.home.getHome().get(pos)).clone());
+                                Main.world.addToWorld(((Entity) Main.world.home.getHome().get(pos)));
+                                ((Entity)world.home.getHome().get(pos)).setPosition("world");
                                 Main.world.home.delToHome(pos);
-                                System.out.println("Об'єкт переміщено");
                             }
                         }
-                    } catch (NumberFormatException | CloneNotSupportedException e) {
+                    } catch (NumberFormatException  e) {
                         System.out.println("Не введено параметр!");
                     }
                 }
@@ -289,15 +359,17 @@ public class MainMenu {
                         int pos = Integer.parseInt(p);
                         switch (wh) {
                             case "1" -> {
-                                world.home.addToHome(((Entity) world.cave.getCave().get(pos)).clone());
+                                world.home.addToHome(((Entity) world.cave.getCave().get(pos)));
+                                ((Entity)world.cave.getCave().get(pos)).setPosition("home");
                                 world.cave.delToCave(pos);
                             }
                             case "3" -> {
-                                world.addToWorld(((Entity) world.cave.getCave().get(pos)).clone());
+                                world.addToWorld(((Entity) world.cave.getCave().get(pos)));
+                                ((Entity)world.cave.getCave().get(pos)).setPosition("world");
                                 world.cave.delToCave(pos);
                             }
                         }
-                    } catch (NumberFormatException | CloneNotSupportedException e) {
+                    } catch (NumberFormatException  e) {
                         System.out.println("Не введено параметр!");
                     }
                 }
@@ -314,11 +386,13 @@ public class MainMenu {
                         int pos = Integer.parseInt(p);
                         switch (wh) {
                             case "1" -> {
-                                world.home.addToHome(((Entity) world.getWorld().get(pos)).clone());
+                                world.home.addToHome(((Entity) world.getWorld().get(pos)));
+                                ((Entity)world.getWorld().get(pos)).setPosition("home");
                                 world.delToWorld(pos);
                             }
                             case "2" -> {
-                                world.cave.addToCave(((Entity) world.getWorld().get(pos)).clone());
+                                world.cave.addToCave(((Entity) world.getWorld().get(pos)));
+                                ((Entity)world.getWorld().get(pos)).setPosition("cave");
                                 world.delToWorld(pos);
                             }
                         }
@@ -328,11 +402,99 @@ public class MainMenu {
                 }
             }
         }
-        catch (CloneNotSupportedException | ArrayIndexOutOfBoundsException exception){
+        catch ( ArrayIndexOutOfBoundsException exception){
             System.out.println("Помилка");
         }
+        update();
         menu(obj);
     }
+    /*public static void moveFromEntity(Entity obj){
+        int check = 0;
+        for (int i = 0;i < world.getWorld().size();++i ) {
+            if (((Entity) world.getWorld().get(i)).getId() == obj.getId()) {
+                check = 1;
+                break;
+            }
+            if (((Entity) world.home.getHome().get(i)).getId() == obj.getId()) {
+                check = 2;
+                break;
+            }
+            if (((Entity) world.cave.getCave().get(i)).getId() == obj.getId()) {
+                check = 3;
+                break;
+            }
+        }
+        switch (check){
+            case 1 ->{
+                System.out.println("""
+                            Куди перемістити?
+                            [1] - Дім
+                            [2] - Шахта""");
+                String wh = sc.next();
+                try {
+                    switch (wh) {
+                        case "1" -> {
+                            world.home.addToHome(obj);
+                            world.delToWorld(obj);
+                        }
+                        case "2" -> {
+                            world.cave.addToCave(obj);
+                            world.delToWorld(obj);
+                        }
+                        default -> System.out.println("Не вибрано");
+                    }
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Не введено параметр!");
+                }
+            }
+            case 2 ->{
+                System.out.println("""
+                            Куди перемістити?
+                            [2] - Шахта
+                            [3] - Світ""");
+                String wh = sc.next();
+                try {
+                    switch (wh) {
+                        case "2" -> {
+                            Main.world.cave.addToCave(obj);
+                            Main.world.home.delToHome(obj);
+                        }
+                        case "3" -> {
+                            Main.world.addToWorld(obj);
+                            Main.world.home.delToHome(obj);
+                            System.out.println("Об'єкт переміщено");
+                        }
+                        default -> System.out.println("Не вибрано");
+                    }
+                } catch (NumberFormatException  e) {
+                    System.out.println("Не введено параметр!");
+                }
+            }
+            case 3 ->{
+                System.out.println("""
+                            Куди перемістити?
+                            [1] - Дім
+                            [3] - Світ""");
+                String wh = sc.next();
+                try {
+                    switch (wh) {
+                        case "1" -> {
+                            world.home.addToHome(obj);
+                            world.cave.delToCave(obj);
+                        }
+                        case "3" -> {
+                            world.addToWorld(obj);
+                            world.cave.delToCave(obj);
+                        }
+                    }
+                } catch (NumberFormatException  e) {
+                    System.out.println("Не введено параметр!");
+                }
+            }
+            default -> menu(obj);
+        }
+        menu(obj);
+    }*/
     public static void copyEntity(){
         System.out.println("Звідки копіювати ?" +
                 "\n[1] - Дім\t" +"("+ world.home.getHome().size() +")" +
@@ -529,6 +691,7 @@ public class MainMenu {
         if (sizeWorld == 0) world.clearWorld();
         if(sizeCave == 0) world.cave.clearCave();
         if(sizeHome == 0) world.home.clearHome();
+        MainController.size += sizeCave + sizeWorld +sizeHome;
     }
     public static void menulistSpider(Entity obj){
         System.out.println(
@@ -551,5 +714,5 @@ public class MainMenu {
                         "\n [ 6] - Інвентар " +
                         "\n [ 7] - Добути ресурси " );
     }
-    public static void cls(){ System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n"); }
+    public static void cls(){ System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n*2\\"); }
 }

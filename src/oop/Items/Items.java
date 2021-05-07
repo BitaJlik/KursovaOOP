@@ -1,29 +1,24 @@
 package oop.Items;
 
-import oop.Main;
-
 import java.util.ArrayList;
 
 public abstract class Items  {
 
-    public static ArrayList<Items> items = new ArrayList<>();
+    public static ArrayList<Items> globalList = new ArrayList<>();
 
     private String name;
-    private int id ;
     private double price;
     private int amount;
     private int digSeconds;
-    public Items(String name, double price ,  int amount, int digSeconds){
+    public Items(String name, double price, int digSeconds){
         this.name = name;
         this.price = price;
-        this.amount = amount;
+        this.amount = 1;
         this.digSeconds = digSeconds;
     }
     //-------------------- Default methods
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
     public int getAmount() { return amount; }
@@ -33,11 +28,6 @@ public abstract class Items  {
     public double getFeed() { return 0; }
     public void setFeed(double feed) {  }
     //------------------------
-    public static void initialize(){
-        Ores.oresinit();
-        Food.foodsinit();
-        Main.world.registryItems();
-    }
     public Items clone()  {
         return null;
     }
