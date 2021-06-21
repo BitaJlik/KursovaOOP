@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="602.0" style=".titled-pane &gt; .content &gt; *: -fx-padding: 0px;;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Entities.fxml.EntController">
+   <ImageView fitHeight="376.0" fitWidth="652.0" layoutY="-54.0" opacity="0.85" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../Entities/fxml/bckg.jpg" />
+   </ImageView>
+   <AnchorPane layoutY="219.0" opacity="0.0" prefHeight="55.0" prefWidth="602.0" style="-fx-background-color: #FFC300;" />
+   <Button fx:id="back" layoutX="14.0" layoutY="229.0" mnemonicParsing="false" onAction="#back" text="Назад" />
+   <Button fx:id="confirm" layoutX="503.0" layoutY="229.0" mnemonicParsing="false" onAction="#confirm" text="Підтвердити" />
+   <TextField fx:id="inName" layoutX="63.0" layoutY="30.0" />
+   <Label fx:id="inputName" layoutX="23.0" layoutY="34.0" text="Ім'я" textFill="WHITE" />
+   <Label fx:id="inputDamage" layoutX="11.0" layoutY="125.0" text="Damage" textFill="WHITE" />
+   <Label fx:id="inputHp" layoutX="26.0" layoutY="78.0" text="Hp" textFill="WHITE" />
+   <TextField fx:id="inHp" layoutX="63.0" layoutY="74.0" />
+   <TextField fx:id="inDmg" layoutX="63.0" layoutY="121.0" />
+   <Button layoutX="435.0" layoutY="30.0" mnemonicParsing="false" onAction="#createNovice" prefHeight="25.0" prefWidth="153.0" text="Створити Стіва Новачка" />
+   <Button layoutX="435.0" layoutY="62.0" mnemonicParsing="false" onAction="#createMid" text="Створити Стіва Бувалого" />
+   <Button layoutX="435.0" layoutY="95.0" mnemonicParsing="false" onAction="#createPro" prefHeight="25.0" prefWidth="153.0" text="Створити Стіва Профі" />
+   <Button layoutX="435.0" layoutY="130.0" mnemonicParsing="false" onAction="#createSpider" prefHeight="25.0" prefWidth="153.0" text="Павука " />
+   <Label fx:id="label" layoutX="119.0" layoutY="228.0" prefHeight="17.0" prefWidth="58.0" text="Куди" textFill="WHITE">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+   <ButtonBar layoutX="188.0" layoutY="233.0">
+      <buttons>
+         <RadioButton fx:id="worldRadio" mnemonicParsing="false" prefWidth="49.0" text="Світ" textFill="WHITE">
+            <toggleGroup>
+               <ToggleGroup fx:id="group1" />
+            </toggleGroup>
+         </RadioButton>
+         <RadioButton fx:id="caveRadio" mnemonicParsing="false" text="Шахта" textFill="WHITE" toggleGroup="$group1" />
+         <RadioButton fx:id="homeRadio" mnemonicParsing="false" text="Дім" textFill="WHITE" toggleGroup="$group1" />
+      </buttons>
+   </ButtonBar>
+   <TextField fx:id="inputX" layoutX="63.0" layoutY="161.0" prefHeight="25.0" prefWidth="65.0" promptText="x" />
+   <TextField fx:id="inputY" layoutX="145.0" layoutY="161.0" prefHeight="25.0" prefWidth="65.0" promptText="y" />
+   <CheckBox fx:id="active" layoutX="101.0" layoutY="202.0" mnemonicParsing="false" text="Active" textFill="WHITE">
+      <font>
+         <Font size="13.0" />
+      </font>
+   </CheckBox>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>
