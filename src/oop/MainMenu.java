@@ -2,6 +2,7 @@ package oop;
 
 import oop.Entities.Entity;
 import oop.Entities.Steve;
+import oop.Items.Items;
 
 import java.util.stream.IntStream;
 
@@ -12,6 +13,7 @@ public class MainMenu {
     static int sizeWorld;
     static int sizeCave;
     static int sizeHome;
+    static Actions actions = new Actions();
     public static void menu(){
         update();
         if(sizeHome == 0 && sizeCave == 0 && sizeWorld == 0) {
@@ -99,7 +101,7 @@ public class MainMenu {
                     menu(obj);
                 }
                 case "2" ->{
-                    world.dig(obj);
+                    actions.dig(obj);
                     menu(obj);
                 }
             }
@@ -118,7 +120,7 @@ public class MainMenu {
             else if(choose >= obj.getInv().size() || choose < 0){
                 sellItem(obj);
             }
-            else world.home.sell(obj,choose);
+            else world.home.sell(obj, (Items) obj.getInv().get(choose));
         }
         catch (NumberFormatException e){
             System.out.println("Помилка");
@@ -691,7 +693,6 @@ public class MainMenu {
         if (sizeWorld == 0) world.clearWorld();
         if(sizeCave == 0) world.cave.clearCave();
         if(sizeHome == 0) world.home.clearHome();
-        MainController.size += sizeCave + sizeWorld +sizeHome;
     }
     public static void menulistSpider(Entity obj){
         System.out.println(

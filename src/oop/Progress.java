@@ -13,7 +13,7 @@ public class Progress implements AutoCloseable  {
         this.maxValue = maxValue;
     }
 
-    public void tick() {
+     void tick() {
         final long t = value.incrementAndGet();
         final double percentage = (int) (t / maxValue * 100);
         if (prevPercentage != (int) percentage) {
@@ -30,7 +30,7 @@ public class Progress implements AutoCloseable  {
         return new Progress(maxValue);
     }
 
-    static void updateProgress(double progressPercentage) {
+    void updateProgress(double progressPercentage) {
         final int width = 50; // progress bar width in chars
 
         System.out.print("\r[");
@@ -43,7 +43,7 @@ public class Progress implements AutoCloseable  {
         }
         System.out.print("]");
     }
-    public static void func(int time){ // Main функція
+     void func(int time){ // Main функція
         String[] ss = new String[200 * time];
         try (Progress progress = Progress.ofMax(ss.length)){
             Arrays.stream(ss).forEach(s -> {
@@ -53,7 +53,7 @@ public class Progress implements AutoCloseable  {
             System.out.println();
         }
     }
-    public static void Waiting(int period) { // Sleep функція
+     void Waiting(int period) { // Sleep функція
         try {
             Thread.sleep(period);
         } catch (InterruptedException ex) {

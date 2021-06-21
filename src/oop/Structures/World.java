@@ -1,13 +1,10 @@
 package oop.Structures;
 
 import oop.Entities.Entity;
-import oop.Entities.Spider;
-import oop.Entities.Steve;
 import oop.Items.Food;
 import oop.Items.Items;
 import oop.Items.Ores;
 import oop.MainMenu;
-import oop.Progress;
 
 import java.util.ArrayList;
 
@@ -33,30 +30,7 @@ public class World {
     public ArrayList getWorld(){ return this.world; }
     public void clearWorld(){ this.world.clear(); }
 //----------------------------
-    public void dig(Entity obj){
-        int check = 0;
-        for (Entity entity : world) {
-            if (entity.getId() == obj.getId()) {
-                check = 1;
-                break;
-            }
-        }
-        if(check == 1){
-            if (obj instanceof Steve) {
-                int id = (int) (Math.random() * Food.foods.size());
-                int chance = (int) (Math.random() * 100);
-                if (!isDay) {
-                    if (chance > 60) {
-                        MainMenu.deathBatlle(obj, new Spider());
-                    }
-                }
-                Progress.func(Food.foods.get(id).getDigseconds());
-                System.out.println("Добули " + Food.foods.get(id).getName());
-                obj.addInv(Food.foods.get(id));
-            }
-        }
-        else System.out.println("\u001B[31mОб'єкт не в світі!\u001B[m");
-    }
+
 //----------------------------
     public static void registryItems(){
         Items.globalList.addAll(Ores.ores);

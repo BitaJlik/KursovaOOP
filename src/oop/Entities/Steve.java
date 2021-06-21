@@ -1,7 +1,6 @@
 package oop.Entities;
 
 import oop.Items.Items;
-import oop.Progress;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -29,8 +28,12 @@ public class Steve extends oop.Entities.Entity  {
             inventory.remove(index);
         }
         else inventory.get(index).setAmount(-1);
+        for(int i =0;i<inventory.size();++i){
+            if(inventory.get(i).getAmount() == 0) inventory.remove(inventory.get(i));
+        }
     }
-    public ArrayList getInv(){ return this.inventory; }
+    public ArrayList getInv(){
+        return this.inventory; }
     public void clearInv(){ inventory.clear(); }
     //--------------------   Actions
     public void Attack() {
@@ -49,12 +52,14 @@ public class Steve extends oop.Entities.Entity  {
         super.setDamage(0);
         super.setId(-1);
         super.setSpeed(0);
+        inventory.clear();
     }
-    public void Sleeping() {
-        if(super.getHp() > 1){
-            System.out.println(super.getName() +"\u001B[32m" + " Спить" + "\u001B[0m");
-            Progress.func(2);
-            Healing(3);
+    public void eat(Items item) {
+        if(this.inventory.contains(item)){
+            setHp(getHp()+ inventory.get(getInv().lastIndexOf(item)).getFeed());
+            this.inventory.get(getInv().lastIndexOf(item)).setAmount(-1);
+            if(inventory.get(getInv().lastIndexOf(item)).getAmount() < 1)
+                inventory.remove(item);
         }
     }
     //----------------------------- Movements

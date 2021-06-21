@@ -1,4 +1,4 @@
-package oop.Actions;
+package oop.ActionsP;
 
 public interface Defalut {
     //--------------------

@@ -1,6 +1,6 @@
 package oop.Entities;
 
-import oop.Actions.Defalut;
+import oop.ActionsP.Defalut;
 import oop.Items.Items;
 
 import java.util.ArrayList;
@@ -69,6 +69,7 @@ public abstract class Entity implements Cloneable,Defalut,Comparable<Entity>{
     public void delInv(int index){   }
     public ArrayList getInv(){ return null; }
     public void clearInv(){  }
+    public void eat(Items item){}
     //--------------------------------------------------------
 
     public int compareTo(Entity st2)

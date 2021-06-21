@@ -1,7 +1,5 @@
 package oop.Entities;
 
-import oop.Progress;
-
 import java.text.DecimalFormat;
 
 public class Spider extends Entity {
@@ -31,7 +29,7 @@ public class Spider extends Entity {
     }
     public void Sleeping() {
         System.out.println(super.getName() +"\u001B[32m" + " Спить" + "\u001B[0m");
-        Progress.func(1);
+        //Progress.func(1);
     }
     //-------------------------------
     public  void moveUp(){ setY(getY() + super.getSpeed()); }

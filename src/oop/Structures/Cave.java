@@ -5,7 +5,6 @@ import oop.Entities.Spider;
 import oop.Entities.Steve;
 import oop.Items.Ores;
 import oop.MainMenu;
-import oop.Progress;
 
 import java.util.ArrayList;
 
@@ -51,7 +50,7 @@ public class Cave {
                 if (chance > 60) {
                     MainMenu.deathBatlle(obj, new Spider());
                 }
-                Progress.func(Ores.ores.get(id).getDigseconds());
+                //Progress.func(Ores.ores.get(id).getDigseconds());
                 System.out.println("Добули " + Ores.ores.get(id).getName());
                 obj.addInv(Ores.ores.get(id));
             }

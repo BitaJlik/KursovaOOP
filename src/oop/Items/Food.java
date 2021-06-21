@@ -7,7 +7,7 @@ public class Food extends Items{
      private double feed;
 
     public Food(String name, double price, double feed,int digSeconds) {
-        super(name,price,digSeconds);
+        super(name,price,digSeconds,"Food");
         this.feed = feed;
     }
 

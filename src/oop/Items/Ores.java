@@ -6,7 +6,7 @@ public class Ores extends Items{
     public static ArrayList<Items> ores = new ArrayList<>();
 
     public Ores(String name,  double price,int digSeconds) {
-      super(name,price,digSeconds);
+      super(name,price,digSeconds,"Ore");
     }
     public Ores(){ this("Неизвестно",0,-1); }// If object is not correct
    @Override

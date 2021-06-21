@@ -5,16 +5,17 @@ import java.util.ArrayList;
 public abstract class Items  {
 
     public static ArrayList<Items> globalList = new ArrayList<>();
-
+    private String type;
     private String name;
     private double price;
     private int amount;
     private int digSeconds;
-    public Items(String name, double price, int digSeconds){
+    public Items(String name, double price, int digSeconds,String type){
         this.name = name;
         this.price = price;
         this.amount = 1;
         this.digSeconds = digSeconds;
+        this.type = type;
     }
     //-------------------- Default methods
     public String getName() { return name; }
@@ -27,6 +28,9 @@ public abstract class Items  {
     public void setDigseconds(int digSeconds) { this.digSeconds = digSeconds; }
     public double getFeed() { return 0; }
     public void setFeed(double feed) {  }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type;}
+
     //------------------------
     public Items clone()  {
         return null;

@@ -17,8 +17,7 @@ public class MainController {
     public static Stage thisstage;
     private double xOffset = 0;
     private double yOffset = 0;
-
-    public static int size = 0;
+    private static int size = 0;
     @FXML
     private Button minus;
     @FXML

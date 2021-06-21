@@ -1,7 +1,10 @@
 package oop.Entities.fxml;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oop.Entities.Spider;
@@ -11,7 +14,6 @@ import oop.Entities.StevePro;
 import oop.Main;
 import oop.MainController;
 import oop.MainMenu;
-import oop.Progress;
 
 public class EntController {
     @FXML
@@ -125,13 +127,13 @@ public class EntController {
     public void createSpider() {
         check();
             if (worldRadio.isSelected()) {
-                Main.world.addToWorld(new Spider(getName(), getHp(), getDmg(),"world"));
+                Main.world.addToWorld(new Spider("Павук",10,2.2,"world"));
                 System.out.println("Created Spider in world ");
             } else if (caveRadio.isSelected()) {
-                Main.world.cave.addToCave(new Spider(getName(), getHp(), getDmg(),"cave"));
+                Main.world.cave.addToCave(new Spider("Павук",10,2.2,"cave"));
                 System.out.println("Created Spider in cave ");
             } else if (homeRadio.isSelected()) {
-                Main.world.home.addToHome(new Spider(getName(), getHp(), getDmg(),"home"));
+                Main.world.home.addToHome(new Spider("Павук",10,2.2,"home"));
                 System.out.println("Created Spider in home ");
             }
     }
@@ -140,7 +142,7 @@ public class EntController {
             label.setTextFill(Color.web("red"));
         }
         else {
-         Progress.Waiting(200);
+        // Progress.Waiting(200);
             label.setTextFill(Color.web("white"));
         }
     }
@@ -152,7 +154,7 @@ public class EntController {
         if(inDmg.getText().equals("")) inputDamage.setTextFill(Color.web("red"));
 
         if(!(inName.getText().equals("")||inHp.getText().equals("")||inDmg.getText().equals(""))){
-            Progress.Waiting(200);
+            //Progress.Waiting(200);
             removeRed();
         }
     }

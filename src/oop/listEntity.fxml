@@ -7,7 +7,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="322.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.listEntityCntrll">
    <children>
       <ImageView fitHeight="330.0" fitWidth="600.0" layoutY="-8.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
@@ -15,7 +14,7 @@
             <Image url="@listEntityimg.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="back" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Назад" />
+      <Button fx:id="back" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="72.0" text="Назад" />
       <Button layoutX="449.0" layoutY="14.0" mnemonicParsing="false" onAction="#update" text="Обновити" />
       <Button fx:id="close" layoutX="554.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="25.0" text="X" />
       <TableView fx:id="tableEntity" layoutX="9.0" layoutY="65.0" prefHeight="243.0" prefWidth="569.0">
@@ -25,8 +24,11 @@
           <TableColumn fx:id="tableName" prefWidth="116.0" text="Name" />
             <TableColumn fx:id="tableHp" prefWidth="71.0" text="Hp" />
             <TableColumn fx:id="tableDmg" prefWidth="79.0" text="Damage" />
-            <TableColumn fx:id="tablePosition" prefWidth="158.0" text="Position" />
+            <TableColumn fx:id="tableMoney" prefWidth="75.0" text="Money" />
+            <TableColumn fx:id="tablePosition" prefWidth="82.0" text="Position" />
         </columns>
       </TableView>
+      <Button fx:id="edit" layoutX="365.0" layoutY="14.0" mnemonicParsing="false" onAction="#edit" prefHeight="25.0" prefWidth="72.0" text="Змінити" />
+      <Button fx:id="inventory" layoutX="274.0" layoutY="14.0" mnemonicParsing="false" onAction="#inventory" prefHeight="25.0" prefWidth="72.0" text="Предмети" />
    </children>
 </AnchorPane>

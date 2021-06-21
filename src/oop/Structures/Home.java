@@ -10,6 +10,7 @@ public class Home {
     private final ArrayList<Entity> home;
     private double x;
     private double y;
+    public static int staticsum = 0;
 
     public Home(double x,double y){
         home = new ArrayList<>();
@@ -33,7 +34,7 @@ public class Home {
     public ArrayList getHome(){ return this.home; }
     public void clearHome(){this.home.clear();}
 //-----------------------------
-    public void sell(Entity obj, int choose) {
+    public void sell(Entity obj, Items items) {
         int check = 0;
         for (Entity entity : home) {
             if (entity.getId() == obj.getId()) {
@@ -43,12 +44,17 @@ public class Home {
         }
         if (check == 1) {
             ArrayList<Items> temp = new ArrayList(((Steve) obj).getInv());
-            if (temp.get(choose).getAmount() > 0) {
-                obj.delInv(choose);
-                obj.setMoney(obj.getMoney() + temp.get(choose).getPrice());
-                System.out.println("Продано " + temp.get(choose).getName());
-            } else System.out.println("Недостаня кількість");
+            int choose = temp.lastIndexOf(items);
+            if (!(temp.lastIndexOf(items) == -1)) {
+                if (temp.get(choose).getAmount() > 0) {
+                    obj.delInv(choose);
+                    obj.setMoney(obj.getMoney() + temp.get(choose).getPrice());
+                    System.out.println("Продано " + temp.get(choose).getName());
+                } else System.out.println("Недостаня кількість");
+            }
+            else System.out.println("We dont have item");
         }else System.out.println("\u001B[31mПотрібно бути дома!\u001B[0m");
+
     }
     public void sellAll(Entity obj){
         int check = 0;
@@ -64,8 +70,10 @@ public class Home {
                 for (int i = 0; i < obj.getInv().size(); i++) {
                     sum += (int) (((Items) obj.getInv().get(i)).getAmount() * ((Items) obj.getInv().get(i)).getPrice());
                 }
+                staticsum = sum;
                 obj.clearInv();
                 obj.setMoney(obj.getMoney() + sum);
+
                 System.out.println("Продано все на суму " + sum + "$");
             }
         }else System.out.println("\u001B[31mПотрібно бути дома!\u001B[0m");

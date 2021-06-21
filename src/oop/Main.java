@@ -1,5 +1,8 @@
 package oop;
 
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -8,10 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import oop.Entities.Entity;
 import oop.Entities.Steve;
 import oop.Entities.SteveMiddle;
 import oop.Entities.StevePro;
+import oop.Items.Food;
+import oop.Items.Items;
 import oop.Structures.World;
 
 import java.util.Scanner;
@@ -22,9 +28,13 @@ public class Main extends Application {
     public static World world = new World(25,25,475,475);
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+        world.home.addToHome(new Steve());
+        ((Entity) world.home.getHome().get(0)).addInv(Items.globalList.get(0));
+        ((Entity) world.home.getHome().get(0)).setPosition("world");
+        ((Entity) world.home.getHome().get(0)).addInv(Items.globalList.get(1));
+        ((Entity) world.home.getHome().get(0)).addInv(Food.foods.get(0));
         launch(args);
         MainLaunch();
-        launch(args);
     }
     public static void MainLaunch(){
         MainMenu.update();
@@ -55,6 +65,21 @@ public class Main extends Application {
                 stage.setY(event.getScreenY() - yOffset);
             }
         });
+        Animation transition = new Transition() {
+            {
+                setCycleDuration(Duration.millis(750));
+                setInterpolator(Interpolator.LINEAR);
+            }
+            @Override
+            protected void interpolate(double frac) {
+                // frac is the percentage of how much time of the Transition
+                // Already passed (1000 ms => frac = 0.5)
+                // Here you just Multiply frac with the designated value
+                stage.setHeight(277*frac);
+                stage.setWidth(219*frac*-1);
+            }
+        };
+        transition.play();
         stage.show();
     }
     public static Entity rndEntity(){
@@ -67,4 +92,5 @@ public class Main extends Application {
         }
         return entity;
     }
+
 }
