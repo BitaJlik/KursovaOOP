@@ -2,14 +2,13 @@ package sample;
 
 import Entities.Entity;
 
-import java.nio.file.FileStore;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static sample.Main.world;
 
 public class Menu {
-    public static String seeWorld(ArrayList<Entity> arrayList){
+    public static String seeWorld( ArrayList<Entity> arrayList){
         StringBuilder information = new StringBuilder();
         if(arrayList.size() != 0) {
             for (int i = 0; i < arrayList.size(); i++) {

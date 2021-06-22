@@ -96,7 +96,6 @@ public class EditEntity {
                     entity1.setXwl(entity1.getBPosX() + Math.random() * 160);
                     Main.world.home.getHome().add(entity1);
                     Main.world.cave.getCave().remove(entity1);
-                    entity1.switchHome();
                     break;
                 }
             }
@@ -105,7 +104,6 @@ public class EditEntity {
                     entity1.setPosition("home");
                     entity1.setYwl(entity1.getBPosY() + Math.random() * 160);
                     entity1.setXwl(entity1.getBPosX() + Math.random() * 160);
-                    entity1.switchHome();
                     Main.world.home.getHome().add(entity1);
                     Main.world.getWorld().remove(entity1);
                     break;

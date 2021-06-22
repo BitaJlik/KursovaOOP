@@ -5,7 +5,6 @@ import Entities.Steve;
 import Item.Items;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sample.listEntityCntrll;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,7 @@ public class Home {
         }
         if(obj.getImg().getBoundsInParent().intersects(getImg().getBoundsInParent())){
             if (obj instanceof Steve) {
-                if(obj.getProcess() >= 280) {
+                if(obj.getProcess() >= 300) {
                     if(inHome){
                         obj.heal(obj.getHp() + 3);
 
@@ -55,7 +54,7 @@ public class Home {
                 else obj.setProcess();
             }
             else {
-                if(obj.getProcess() >= 250) {
+                if(obj.getProcess() >= 300) {
                     obj.setHp(obj.getHp() - 2);
                     obj.clearProcess();
                 }

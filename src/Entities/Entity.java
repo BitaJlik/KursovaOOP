@@ -56,8 +56,8 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
         idf = 0;
     }
 
-    double newx ;
-    double newy ;
+    protected double newx ;
+    protected double newy ;
 
     public Entity(Image img, String _name, double _hp, double _damage, String _position, String type,int x,int y){
         imageView = new ImageView(img);

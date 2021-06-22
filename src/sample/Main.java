@@ -137,7 +137,7 @@ public class Main extends Application {
 
         Main.primaryStage = primaryStage;
         primaryStage.show();
-        new AnimationTimer() {
+        AnimationTimer animationTimer =  new AnimationTimer() {
             @Override
             public void handle(long now) {
                 for (Entity ent1 : world.getWorld()){
@@ -166,7 +166,8 @@ public class Main extends Application {
                 world.getAllWorld().forEach(Entity::lifeCycle);
                 world.updateWorld();
             }
-        }.start();
+        };
+        animationTimer.start();
     }
 
     public static void main(String[] args) { launch(args); }
@@ -325,12 +326,8 @@ private static class KeyPressedHandler implements EventHandler<KeyEvent> {
                     // Activate all Entities
                     case A -> {
                         for (int i = 0; i < keysPressed.length; i++)
-                            if (keysPressed[i]) keysPressed[i] = false;
-                        for (Entity entity : world.getWorld()) {
-                            if (!entity.isActive())
-                                entity.mouseActivate(entity.getX(), entity.getY());
-                        }
-                        for (Entity entity : world.home.getHome()) {
+                        if (keysPressed[i]) keysPressed[i] = false;
+                        for (Entity entity : world.getAllWorld()) {
                             if (!entity.isActive())
                                 entity.mouseActivate(entity.getX(), entity.getY());
                         }
@@ -365,7 +362,7 @@ private static class KeyPressedHandler implements EventHandler<KeyEvent> {
         private static void About(){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("About");
-            alert.setHeaderText("Lab_6 BitaJlik");
+            alert.setHeaderText("Kursova BitaJlik");
             alert.setContentText("""
                             W,S,A,D - Переміщення активних об'єктів             
                             Стрілки для Керування екраном\s

@@ -131,10 +131,10 @@ public class World {
                 if (event.getX() < 190) {
                     Main.scrollPane.setHvalue(0);
                     rectangle.setX(0);
-                } else if(event.getX() > 190 & event.getX() < 280){
+                } else if(event.getX() > 190 & event.getX() < 300){
                     Main.scrollPane.setHvalue(0.5);
                     rectangle.setX(150);
-                } else if (event.getX() > 284) {
+                } else if (event.getX() > 300) {
                     Main.scrollPane.setHvalue(1);
                     rectangle.setX(284);
                 }
