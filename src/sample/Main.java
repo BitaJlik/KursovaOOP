@@ -137,7 +137,7 @@ public class Main extends Application {
 
         Main.primaryStage = primaryStage;
         primaryStage.show();
-        AnimationTimer animationTimer =  new AnimationTimer() {
+        new AnimationTimer() {
             @Override
             public void handle(long now) {
                 for (Entity ent1 : world.getWorld()){
@@ -166,8 +166,7 @@ public class Main extends Application {
                 world.getAllWorld().forEach(Entity::lifeCycle);
                 world.updateWorld();
             }
-        };
-        animationTimer.start();
+        }.start();
     }
 
     public static void main(String[] args) { launch(args); }

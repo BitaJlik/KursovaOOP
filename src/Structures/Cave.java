@@ -28,15 +28,7 @@ public class Cave {
     public void setY(double y) { this.y = y; }
     //-----------------------------------------
     public ArrayList<Entity> getCave(){return cave;}
-    // ------------------------------------------ ONLY STEVE-------\\
-    public static void Fight(Entity obj){
-        if(obj instanceof Steve){
-            double shance = 1 + Math.random()*100;
-            if(shance > 70){
-                Menu.deathBatlle(obj,new Spider());
-            }
-        }
-    }
+
     public void dig(Entity obj){
         if(obj.getId() == -1) return;
         if(obj.getImg().getBoundsInParent().intersects(getImg().getBoundsInParent())){

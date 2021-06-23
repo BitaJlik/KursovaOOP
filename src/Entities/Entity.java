@@ -1,6 +1,5 @@
 package Entities;
 
-import Item.Items;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -10,10 +9,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import sample.Main;
 
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Objects;
 
 import static sample.Main.world;
@@ -58,7 +53,7 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
 
     protected double newx ;
     protected double newy ;
-
+    // So... Constructor
     public Entity(Image img, String _name, double _hp, double _damage, String _position, String type,int x,int y){
         imageView = new ImageView(img);
         imageView.setFitHeight(40);
@@ -129,10 +124,11 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
         setY(imageView.getY() + dy);
 
     }
+    // ==== Getters position Begin
     public double getBPosX(){
         return switch (position) {
             case "home" -> 1;
-            case "cave" -> 1720;
+            case "cave" -> 1721;
             default -> 0;
         };
     }
@@ -140,11 +136,11 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
         return switch (position) {
             case "world" -> 3760;
             case "home" -> 360;
-            case "cave" -> 2080;
+            case "cave" -> 2079;
             default -> 0;
         };
     }
-
+    // ==== Getters position End
     public double getBPosY(){
         return switch (position) {
             case "home" -> 200;
@@ -182,6 +178,7 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
         miniImage.setY(y/scale);
         imageView.setY(y);
     }
+    // (setX\Y|WithoutLimit)
     public void setXwl(double x) {
         this.x = x;
         label.setLayoutX(x);
@@ -231,7 +228,10 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
     public void heal(double hp){ }
     public void setIdAim(int id){this.idCaveAim = id; }
     public int getIdAim() { return idCaveAim; }
-    public Label getLabel(){ return labelActive; }
+    public String getPosition() { return position; }
+    public void setPosition(String position) { this.position = position; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
     public void switchLife(){
         life = !life;
@@ -241,8 +241,8 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
     }
     public void switchCave(){
         goToCave = !goToCave;
-        goToHome = false;
         life = false;
+        goToHome = false;
         seekFood = false;
         position = "cave";
         newx = getBPosX() + Math.random() * getPosX();
@@ -268,14 +268,13 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
         newx = getBPosX() + Math.random() * getPosX();
         newy = getBPosY() + Math.random() * getPosY();
     }
+    // ================= JAVAFX ================ \\
     public Group getGroup(){return this.group;}
     public ImageView getImg(){return imageView;}
     public ImageView getMiniImage(){return miniImage;}
+    public Label getLabel(){ return labelActive; }
 
-    public String getPosition() { return position; }
-    public void setPosition(String position) { this.position = position; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+
     public void Death(){
         lineHealth.setEndX(0);
         System.out.println(name + " Видалено!");
@@ -319,25 +318,12 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
         }
         else  move(2,0);
     }
-    //---------------------(ONLY STEVE)-------------------------------\\
-    public double getMoney(){return 0;}
-    public void setMoney(double money){}
-    public double getChance(){return 1;}
-    public void setChance(double chance){}
-    public void addInv(Items item){ }
-    public void delInv(int index){ }
-    public ArrayList<Items> getInv(){ return null; }
-    public void eat(Items item){}
-    public void setProcess(){ }
-    public int getProcess(){return 0;}
-    public void clearProcess(){}
-    //--------------------------------------------------------
+
     public int compareTo(Entity entity) { // Comparable
         if( this.name.equals(entity.name) )
         { return Double.compare(this.hp, entity.hp); }
         else return this.name.compareTo(entity.name);
     }
-
     @Override public Entity clone(){ return null; }
 
     @Override public boolean equals(Object o) {
@@ -356,8 +342,4 @@ public abstract class Entity implements Cloneable, ActionsP.Defalut,Comparable<E
 
     public void lifeCycle() { }
     public static void clearIdf(){idf = 0;}
-    public void open(BufferedReader bufferedReader){}
-
-    public void save( FileWriter fileWriter ) throws IOException { }
-
 }

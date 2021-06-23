@@ -89,9 +89,9 @@ public class EditEntity {
             }
         }
         if (check == 1) {
+            entity1.switchHome();
             for (int i = 0; i < Main.world.cave.getCave().size(); i++) {
                 if (Main.world.cave.getCave().get(i).getId() == entity1.getId()) {
-                    entity1.setPosition("home");
                     entity1.setYwl(entity1.getBPosY() + Math.random() * 160);
                     entity1.setXwl(entity1.getBPosX() + Math.random() * 160);
                     Main.world.home.getHome().add(entity1);
@@ -101,7 +101,6 @@ public class EditEntity {
             }
             for (int i = 0; i < Main.world.getWorld().size(); i++) {
                 if (Main.world.getWorld().get(i).getId() == entity1.getId()) {
-                    entity1.setPosition("home");
                     entity1.setYwl(entity1.getBPosY() + Math.random() * 160);
                     entity1.setXwl(entity1.getBPosX() + Math.random() * 160);
                     Main.world.home.getHome().add(entity1);
@@ -145,23 +144,21 @@ public class EditEntity {
         if (check == 1) {
             for (int i = 0; i < Main.world.home.getHome().size(); i++) {
                 if (Main.world.home.getHome().get(i).getId() == entity1.getId()) {
-                    entity1.setPosition("cave");
+                    entity1.switchCave();
                     entity1.setYwl(entity1.getBPosY() + Math.random() * 160);
                     entity1.setXwl(entity1.getBPosX() + Math.random() * 360);
                     Main.world.cave.getCave().add(entity1);
                     Main.world.home.getHome().remove(entity1);
-                    entity1.switchCave();
                     break;
                 }
             }
             for (int i = 0; i < Main.world.getWorld().size(); i++) {
                 if (Main.world.getWorld().get(i).getId() == entity1.getId()) {
-                    entity1.setPosition("cave");
+                    entity1.switchCave();
                     entity1.setYwl(entity1.getBPosY() + Math.random() * 160);
                     entity1.setXwl(entity1.getBPosX() + Math.random() * 360);
                     Main.world.cave.getCave().add(entity1);
                     Main.world.getWorld().remove(entity1);
-                    entity1.switchCave();
                     break;
                 }
             }
@@ -200,6 +197,7 @@ public class EditEntity {
         if (check == 1) {
             for (int i = 0; i < Main.world.home.getHome().size(); i++) {
                 if (Main.world.home.getHome().get(i).getId() == entity1.getId()) {
+                    entity1.switchLife();
                     entity1.setPosition("world");
                     Main.world.getWorld().add(entity1);
                     Main.world.home.getHome().remove(entity1);
@@ -209,10 +207,10 @@ public class EditEntity {
             }
             for (int i = 0; i < Main.world.cave.getCave().size(); i++) {
                 if (Main.world.cave.getCave().get(i).getId() == entity1.getId()) {
+                    entity1.switchLife();
                     entity1.setPosition("world");
                     Main.world.getWorld().add(entity1);
                     Main.world.cave.getCave().remove(entity1);
-                    entity1.switchLife();
                     break;
                 }
             }
